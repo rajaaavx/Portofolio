@@ -46,6 +46,29 @@
   /* Unlayered so Tailwind utilities can't override them */
   section[id]{scroll-margin-top:5rem;}
   :focus-visible{outline:2px solid rgb(var(--c-signal));outline-offset:3px;}
+  /* ===== Stage 2: navigation ===== */
+  .nav-link{position:relative;font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgb(var(--c-on-surface)/.65);padding:6px 0;transition:color .2s ease;}
+  .nav-link::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:rgb(var(--c-on-surface));transform:scaleX(0);transform-origin:left;transition:transform .25s ease;}
+  .nav-link:hover,.nav-link[aria-current="true"]{color:rgb(var(--c-on-surface));}
+  .nav-link:hover::after,.nav-link[aria-current="true"]::after{transform:scaleX(1);}
+  .lang-btn{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:600;letter-spacing:.08em;padding:4px 10px;border-radius:9999px;color:rgb(var(--c-on-surface)/.6);transition:background-color .2s,color .2s;}
+  .lang-btn[aria-pressed="true"]{background:rgb(var(--c-on-surface));color:rgb(var(--c-surface));}
+  .icon-btn{display:grid;place-items:center;width:40px;height:40px;border-radius:9999px;border:2px solid rgb(var(--c-on-surface));background:rgb(var(--c-surface));color:rgb(var(--c-on-surface));box-shadow:3px 3px 0 0 rgb(var(--shadow-ink));transition:transform .15s ease,box-shadow .15s ease;}
+  .icon-btn:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 0 rgb(var(--shadow-ink));}
+  .icon-btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 0 rgb(var(--shadow-ink));}
+  .btn-ink{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 18px;border-radius:9999px;border:2px solid rgb(var(--c-on-surface));background:rgb(var(--c-on-surface));color:rgb(var(--c-surface));font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;box-shadow:3px 3px 0 0 rgb(var(--c-signal));transition:transform .15s ease,box-shadow .15s ease;}
+  .btn-ink:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 0 rgb(var(--c-signal));}
+  .btn-ink:active{transform:translate(2px,2px);box-shadow:1px 1px 0 0 rgb(var(--c-signal));}
+  .menu-bars{position:relative;display:block;width:18px;height:12px;}
+  .menu-bars span{position:absolute;left:0;width:100%;height:2px;background:currentColor;border-radius:2px;transition:transform .25s ease,opacity .2s ease,top .25s ease;}
+  .menu-bars span:nth-child(1){top:0}.menu-bars span:nth-child(2){top:5px}.menu-bars span:nth-child(3){top:10px}
+  [aria-expanded="true"] .menu-bars span:nth-child(1){top:5px;transform:rotate(45deg)}
+  [aria-expanded="true"] .menu-bars span:nth-child(2){opacity:0}
+  [aria-expanded="true"] .menu-bars span:nth-child(3){top:5px;transform:rotate(-45deg)}
+  .m-link{display:flex;align-items:baseline;gap:14px;padding:14px 0;border-bottom:2px solid rgb(var(--c-on-surface));font-family:"Space Grotesk",sans-serif;font-weight:700;text-transform:uppercase;font-size:clamp(34px,10vw,48px);line-height:1;letter-spacing:-.04em;color:rgb(var(--c-on-surface));}
+  .m-idx{font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:500;letter-spacing:.08em;color:rgb(var(--c-outline));}
+  #mobile-menu:not([hidden]){animation:menuIn .25s ease both;}
+  @keyframes menuIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
     *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}
@@ -98,7 +121,69 @@
     }
   }}};
 </script>
-</head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col justify-between"><header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 max-w-7xl mx-auto px-margin md:px-margin-lg flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md"><a class="flex items-center gap-space-xs group" href="#"><span class="font-headline-sm text-headline-sm text-primary font-bold tracking-tight">Andreas TDP</span><span class="font-label-sm text-label-sm text-outline">/</span><span class="font-body-sm text-body-sm text-on-surface-variant">Portfolio</span></a><div class="hidden sm:flex items-center gap-space-xs pl-space-sm py-space-xs pr-space-md bg-surface-container rounded-full"><span class="relative flex h-2 w-2 ml-space-xs"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span></span><span class="font-label-sm text-label-sm text-secondary font-medium">Available for Internships</span></div></div><nav class="hidden md:flex items-center gap-gutter"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" href="#about">About</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" href="#projects">Projects</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" href="#experience">Experience</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" href="#repositories">Repositories</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" href="#contact">Contact</a></nav><div class="flex items-center gap-space-sm"><a class="inline-flex items-center gap-space-xs bg-primary hover:bg-primary-container text-on-primary px-space-md py-space-xs rounded-lg font-label-sm text-label-sm font-medium transition-all shadow-sm" href="#contact"><span class="">Get in Touch</span><span class="material-symbols-outlined text-[14px]">arrow_forward</span></a></div></div></header><main class="w-full pt-16 bg-surface flex-1 max-w-7xl mx-auto px-margin md:px-margin-lg"><div class="flex flex-col w-full">
+</head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col justify-between"><header id="site-header" class="fixed top-0 inset-x-0 z-50 bg-surface/90 backdrop-blur-md border-b-2 border-on-surface transition-colors">
+  <div class="h-16 md:h-[72px] max-w-7xl mx-auto px-4 md:px-margin-lg flex items-center justify-between gap-4">
+    <!-- Logo -->
+    <a href="#" class="flex items-center gap-3 group shrink-0" aria-label="Andreas Tri Dewa Putra — back to top">
+      <span class="grid place-items-center w-10 h-10 rounded-lg border-2 border-on-surface bg-surface text-on-surface font-mono text-[12px] font-semibold tracking-tight shadow-hard-sm transition-transform duration-200 group-hover:-translate-x-0.5 group-hover:-translate-y-0.5">ATDP</span>
+      <span class="hidden sm:flex flex-col leading-none">
+        <span class="font-display font-bold uppercase text-[15px] tracking-[-0.02em] text-on-surface">Andreas TDP</span>
+        <span class="font-mono text-[10px] uppercase tracking-[0.14em] text-outline mt-1" data-i18n="nav.tagline">Network &amp; Cloud</span>
+      </span>
+    </a>
+
+    <!-- Desktop links -->
+    <nav class="hidden md:flex items-center gap-6 lg:gap-8" aria-label="Primary">
+      <a class="nav-link" href="#about" data-i18n="nav.about">About</a>
+      <a class="nav-link" href="#projects" data-i18n="nav.work">Work</a>
+      <a class="nav-link" href="#experience" data-i18n="nav.journey">Journey</a>
+      <a class="nav-link" href="#repositories" data-i18n="nav.repos">Repos</a>
+      <a class="nav-link" href="#contact" data-i18n="nav.contact">Contact</a>
+    </nav>
+
+    <!-- Controls -->
+    <div class="flex items-center gap-2 sm:gap-3">
+      <div class="hidden sm:flex items-center p-1 rounded-full border-2 border-on-surface bg-surface" role="group" aria-label="Language" data-i18n-aria="nav.language">
+        <button type="button" class="lang-btn" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" class="lang-btn" data-lang="id" aria-pressed="false">ID</button>
+      </div>
+      <button type="button" id="theme-toggle" class="icon-btn" aria-label="Switch to dark theme" data-i18n-aria="nav.themeToDark">
+        <svg class="w-[18px] h-[18px] dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="w-[18px] h-[18px] hidden dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <a class="hidden lg:inline-flex btn-ink" href="https://drive.google.com/file/d/1_z-vZbEhCz77ke15sfU7-fvEsZDbkWWw/view?usp=sharing" rel="noopener noreferrer" target="_blank">
+        <span data-i18n="nav.resume">Resume</span>
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+      <button type="button" id="menu-toggle" class="icon-btn md:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu" data-i18n-aria="nav.menuOpen">
+        <span class="menu-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+      </button>
+    </div>
+  </div>
+
+</header>
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="md:hidden fixed inset-x-0 top-16 bottom-0 z-40 bg-surface overflow-y-auto" hidden>
+    <nav class="flex flex-col px-4 pt-6" aria-label="Mobile">
+      <a class="m-link" href="#about"><span class="m-idx">01</span><span data-i18n="nav.about">About</span></a>
+      <a class="m-link" href="#projects"><span class="m-idx">02</span><span data-i18n="nav.work">Work</span></a>
+      <a class="m-link" href="#experience"><span class="m-idx">03</span><span data-i18n="nav.journey">Journey</span></a>
+      <a class="m-link" href="#repositories"><span class="m-idx">04</span><span data-i18n="nav.repos">Repos</span></a>
+      <a class="m-link" href="#contact"><span class="m-idx">05</span><span data-i18n="nav.contact">Contact</span></a>
+    </nav>
+    <div class="px-4 py-8 flex flex-wrap items-center gap-3">
+      <div class="flex items-center p-1 rounded-full border-2 border-on-surface" role="group" aria-label="Language" data-i18n-aria="nav.language">
+        <button type="button" class="lang-btn" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" class="lang-btn" data-lang="id" aria-pressed="false">ID</button>
+      </div>
+      <a class="btn-ink" href="https://drive.google.com/file/d/1_z-vZbEhCz77ke15sfU7-fvEsZDbkWWw/view?usp=sharing" rel="noopener noreferrer" target="_blank">
+        <span data-i18n="nav.resume">Resume</span>
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+    </div>
+  </div>
+
+<main class="w-full pt-16 md:pt-[72px] bg-surface flex-1 max-w-7xl mx-auto px-margin md:px-margin-lg"><div class="flex flex-col w-full">
 <!-- SECTION 1: HERO & ABOUT -->
 <section class="relative pt-space-xl pb-space-lg" id="about"><div class="relative grid grid-cols-1 lg:grid-cols-12 gap-gutter-lg items-center py-space-md"><div class="lg:col-span-8 flex flex-col gap-space-md"><div class="inline-flex items-center gap-space-sm bg-surface-container-low px-space-md py-space-xs rounded-full w-fit"><span class="w-2 h-2 rounded-full bg-secondary"></span><span class="font-label-sm text-label-sm text-secondary font-medium tracking-wide uppercase">Network Technology &amp; Cloud Student</span></div><div class="flex flex-col gap-space-xs"><h1 class="font-headline-xl text-headline-xl text-on-surface font-semibold tracking-tight">Andreas Tri Dewa Putra</h1><p class="font-headline-sm text-headline-sm text-primary font-medium">Computer Science Student at BINUS University specializing in Network Technology</p></div><p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed max-w-3xl">Computer Science student at BINUS University (Network Technology), focused on cloud infrastructure, networking, security coursework, automation, and system programming through academic labs and projects.</p><div class="flex flex-wrap items-center gap-space-xs pt-space-xs"><span class="px-space-md py-space-xs bg-surface-container rounded-full font-label-sm text-label-sm text-on-surface font-medium">Networking</span><span class="px-space-md py-space-xs bg-surface-container rounded-full font-label-sm text-label-sm text-on-surface font-medium">Cloud Infrastructure</span><span class="px-space-md py-space-xs bg-surface-container rounded-full font-label-sm text-label-sm text-on-surface font-medium">Cybersecurity</span><span class="px-space-md py-space-xs bg-surface-container rounded-full font-label-sm text-label-sm text-on-surface font-medium">Network Automation</span><span class="px-space-md py-space-xs bg-surface-container rounded-full font-label-sm text-label-sm text-on-surface font-medium">System Programming</span></div><div class="flex flex-wrap items-center gap-space-md pt-space-sm"><a class="inline-flex items-center gap-space-xs bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md px-space-lg py-space-sm rounded-lg transition-all shadow-sm" href="https://drive.google.com/file/d/1_z-vZbEhCz77ke15sfU7-fvEsZDbkWWw/view?usp=sharing" rel="noopener noreferrer" target="_blank"><span class="material-symbols-outlined text-[16px]">description</span><span class="">View My CV</span></a><a class="inline-flex items-center gap-space-xs bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md px-space-lg py-space-sm rounded-lg transition-all" href="https://github.com/rajaaavx" rel="noopener noreferrer" target="_blank"><span class="material-symbols-outlined text-[16px] text-tertiary">code</span><span class="">GitHub Profile</span><span class="material-symbols-outlined text-[14px] text-outline">north_east</span></a></div></div><div class="lg:col-span-4 flex flex-col gap-space-md"><div class="bg-surface-container-low p-space-lg rounded-xl border border-surface-container-high flex flex-col gap-space-md"><div class="flex items-center gap-space-sm"><div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[20px]">school</span></div><div><h4 class="font-headline-sm text-headline-sm text-on-surface font-medium">BINUS University</h4><p class="font-body-sm text-body-sm text-on-surface-variant">Computer Science Undergraduate</p></div></div><div class="flex flex-col gap-space-xs pt-space-xs"><div class="flex justify-between items-center font-label-sm text-label-sm"><span class="text-outline">Specialization:</span><span class="text-on-surface font-medium">Network Technology</span></div><div class="flex justify-between items-center font-label-sm text-label-sm"><span class="text-outline">Degree:</span><span class="text-on-surface font-medium">Bachelor of Computer Science</span></div><div class="flex justify-between items-center font-label-sm text-label-sm"><span class="text-outline">GPA:</span><span class="text-on-surface font-medium">3.50 / 4.00</span></div><div class="flex justify-between items-center font-label-sm text-label-sm"><span class="text-outline">Status:</span><span class="text-secondary font-medium">Open to Internship</span></div></div></div><div class="bg-surface-container-low p-space-md rounded-xl flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs text-on-surface font-label-sm text-label-sm"><span class="material-symbols-outlined text-secondary text-[18px]">verified</span><span class="">Core Stack: Azure, Cisco, Docker, Linux, Go, Python</span></div></div></div></div></section>
 <!-- SECTION 2: FEATURED PROJECTS -->
@@ -277,5 +362,103 @@
     })();
   </script>
 </div></main><footer class="w-full bg-surface-container-lowest mt-space-xl"><div class="max-w-7xl mx-auto px-margin md:px-margin-lg py-space-lg flex flex-col sm:flex-row items-center justify-between gap-space-md"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-primary font-bold">Andreas Tri Dewa Putra</span><span class="font-label-sm text-label-sm text-outline">•</span><span class="font-body-sm text-body-sm text-on-surface-variant">Computer Science, BINUS University</span></div><div class="flex items-center gap-space-md font-label-sm text-label-sm text-outline"><a class="hover:text-primary transition-colors" href="https://github.com/rajaaavx" rel="noopener noreferrer" target="_blank">GitHub</a><a class="hover:text-primary transition-colors" href="https://www.linkedin.com/in/andreas-tri-dewa-putra-4684b7326" rel="noopener noreferrer" target="_blank">LinkedIn</a><a class="hover:text-primary transition-colors" href="mailto:andreastridewaputra@gmail.com">Email</a><span class="">© 2025 All Rights Reserved.</span></div></div></footer>
+
+<script id="site-ui">
+  /* ===== Site UI: language, theme, mobile menu, active nav (Stage 2) ===== */
+  (function () {
+    var root = document.documentElement;
+    function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+    function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+
+    /* --- i18n: dictionary is extended in Stage 10 --- */
+    var I18N = {
+      en: {
+        'nav.tagline': 'Network & Cloud', 'nav.about': 'About', 'nav.work': 'Work', 'nav.journey': 'Journey',
+        'nav.repos': 'Repos', 'nav.contact': 'Contact', 'nav.resume': 'Resume', 'nav.language': 'Language',
+        'nav.menuOpen': 'Open menu', 'nav.menuClose': 'Close menu',
+        'nav.themeToDark': 'Switch to dark theme', 'nav.themeToLight': 'Switch to light theme'
+      },
+      id: {
+        'nav.tagline': 'Jaringan & Cloud', 'nav.about': 'Tentang', 'nav.work': 'Proyek', 'nav.journey': 'Perjalanan',
+        'nav.repos': 'Repositori', 'nav.contact': 'Kontak', 'nav.resume': 'CV', 'nav.language': 'Bahasa',
+        'nav.menuOpen': 'Buka menu', 'nav.menuClose': 'Tutup menu',
+        'nav.themeToDark': 'Ganti ke tema gelap', 'nav.themeToLight': 'Ganti ke tema terang'
+      }
+    };
+    window.SITE_I18N = I18N;
+    var lang = read('lang') === 'id' ? 'id' : 'en';
+    function t(key) { return (I18N[lang] && I18N[lang][key]) || I18N.en[key] || ''; }
+    window.siteT = t;
+
+    function applyLang(next) {
+      lang = next === 'id' ? 'id' : 'en';
+      root.lang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        var v = t(el.getAttribute('data-i18n')); if (v) el.textContent = v;
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
+        var v = t(el.getAttribute('data-i18n-html')); if (v) el.innerHTML = v;
+      });
+      document.querySelectorAll('.lang-btn').forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === lang));
+      });
+      syncThemeLabel(); syncMenuLabel();
+      document.dispatchEvent(new CustomEvent('site:lang', { detail: lang }));
+    }
+    document.querySelectorAll('.lang-btn').forEach(function (b) {
+      b.addEventListener('click', function () { store('lang', b.getAttribute('data-lang')); applyLang(b.getAttribute('data-lang')); });
+    });
+
+    /* --- theme --- */
+    var themeBtn = document.getElementById('theme-toggle');
+    function isDark() { return root.classList.contains('dark'); }
+    function syncThemeLabel() {
+      if (!themeBtn) return;
+      var key = isDark() ? 'nav.themeToLight' : 'nav.themeToDark';
+      themeBtn.setAttribute('data-i18n-aria', key); themeBtn.setAttribute('aria-label', t(key));
+    }
+    if (themeBtn) themeBtn.addEventListener('click', function () {
+      root.classList.toggle('dark'); store('theme', isDark() ? 'dark' : 'light'); syncThemeLabel();
+    });
+
+    /* --- mobile menu --- */
+    var menuBtn = document.getElementById('menu-toggle');
+    var menu = document.getElementById('mobile-menu');
+    function menuOpen() { return menuBtn && menuBtn.getAttribute('aria-expanded') === 'true'; }
+    function syncMenuLabel() {
+      if (!menuBtn) return;
+      var key = menuOpen() ? 'nav.menuClose' : 'nav.menuOpen';
+      menuBtn.setAttribute('data-i18n-aria', key); menuBtn.setAttribute('aria-label', t(key));
+    }
+    function setMenu(open) {
+      if (!menuBtn || !menu) return;
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menu.hidden = !open;
+      document.body.style.overflow = open ? 'hidden' : '';
+      syncMenuLabel();
+    }
+    if (menuBtn) menuBtn.addEventListener('click', function () { setMenu(!menuOpen()); });
+    if (menu) menu.querySelectorAll('a[href^="#"]').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && menuOpen()) { setMenu(false); menuBtn.focus(); } });
+    window.matchMedia('(min-width: 768px)').addEventListener('change', function (m) { if (m.matches) setMenu(false); });
+
+    /* --- active section in nav: last section whose top passed 35% of the viewport --- */
+    var links = document.querySelectorAll('.nav-link');
+    var sections = Array.prototype.slice.call(document.querySelectorAll('main section[id]'));
+    var ticking = false;
+    function markActive() {
+      ticking = false;
+      var line = window.innerHeight * 0.35, current = sections.length ? sections[0].id : '';
+      sections.forEach(function (s) { if (s.getBoundingClientRect().top <= line) current = s.id; });
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2 && sections.length) current = sections[sections.length - 1].id;
+      links.forEach(function (l) { l.setAttribute('aria-current', String(l.getAttribute('href') === '#' + current)); });
+    }
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(markActive); } }, { passive: true });
+    window.addEventListener('resize', markActive);
+    markActive();
+
+    applyLang(lang);
+  })();
+</script>
 
 </body></html>
