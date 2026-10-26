@@ -72,6 +72,9 @@
   #mobile-menu:not([hidden]){animation:menuIn .25s ease both;}
   @keyframes menuIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
   /* ===== Stage 3: hero ===== */
+  .skip-link{position:fixed;left:16px;top:-80px;z-index:100;padding:10px 16px;border-radius:12px;background:rgb(var(--c-on-surface));color:rgb(var(--c-surface));font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;transition:top .2s;}
+  .skip-link:focus{top:12px;}
+  main:focus{outline:none;}
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
   .hero{min-height:calc(100svh - 64px);}
   @media (min-width:768px){.hero{min-height:calc(100svh - 72px);}}
@@ -85,7 +88,7 @@
   .pill{display:inline-flex;align-items:center;padding:7px 14px;border:1.5px solid rgb(var(--c-on-surface));border-radius:9999px;background:rgb(var(--c-surface));color:rgb(var(--c-on-surface));font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;box-shadow:3px 3px 0 0 rgb(var(--shadow-ink));transform:rotate(var(--r,0deg));transition:transform .2s ease,box-shadow .2s ease;}
   .pill:hover{transform:rotate(0deg) translate(-1px,-1px);box-shadow:4px 4px 0 0 rgb(var(--shadow-ink));}
   .pill-ink{background:rgb(var(--c-on-surface));color:rgb(var(--c-surface));}
-  .hero-cmd{font-family:"JetBrains Mono",monospace;font-size:11px;line-height:1.7;color:rgb(var(--c-outline));opacity:.75;max-width:62ch;}
+  .hero-cmd{font-family:"JetBrains Mono",monospace;font-size:11px;line-height:1.7;color:rgb(var(--c-outline));max-width:62ch;}
   .btn-outline{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 18px;border-radius:9999px;border:2px solid rgb(var(--c-on-surface));background:rgb(var(--c-surface));color:rgb(var(--c-on-surface));font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;box-shadow:3px 3px 0 0 rgb(var(--shadow-ink));transition:transform .15s ease,box-shadow .15s ease;}
   .btn-outline:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 0 rgb(var(--shadow-ink));}
   .btn-outline:active{transform:translate(2px,2px);box-shadow:1px 1px 0 0 rgb(var(--shadow-ink));}
@@ -381,7 +384,8 @@
     }
   }}};
 </script>
-</head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col justify-between"><header id="site-header" class="fixed top-0 inset-x-0 z-50 bg-surface/90 backdrop-blur-md border-b-2 border-on-surface transition-colors">
+</head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col justify-between"><a class="skip-link" href="#main" data-i18n="aria.skip">Skip to content</a>
+<header id="site-header" class="fixed top-0 inset-x-0 z-50 bg-surface/90 backdrop-blur-md border-b-2 border-on-surface transition-colors">
   <div class="h-16 md:h-[72px] max-w-7xl mx-auto px-4 md:px-margin-lg flex items-center justify-between gap-4">
     <!-- Logo -->
     <a href="#" class="flex items-center gap-3 group shrink-0" aria-label="Andreas Tri Dewa Putra — back to top" data-i18n-aria="aria.logo">
@@ -443,7 +447,7 @@
     </div>
   </div>
 
-<main class="w-full pt-16 md:pt-[72px] bg-surface flex-1 max-w-7xl mx-auto px-margin md:px-margin-lg"><div class="flex flex-col w-full">
+<main id="main" tabindex="-1" class="w-full pt-16 md:pt-[72px] bg-surface flex-1 max-w-7xl mx-auto px-margin md:px-margin-lg"><div class="flex flex-col w-full">
 <!-- HERO -->
 <section class="hero relative flex flex-col pt-8 md:pt-10" aria-labelledby="hero-name">
   <div class="flex-1 flex flex-col justify-center gap-6 md:gap-7 pb-8 md:pb-10">
@@ -1278,7 +1282,7 @@
         'aria.logo': 'Andreas Tri Dewa Putra — back to top', 'aria.primary': 'Primary', 'aria.mobile': 'Mobile navigation',
         'aria.focus': 'Focus areas', 'aria.stack': 'Tech stack', 'aria.footer': 'Footer',
         'j1.role': 'BINUS Entrepreneur Center — Committee Member', 'j2.role': 'BINUS Festival — Committee Member',
-        'j3.role': 'Mentoring Team Leader — TFI Teach For Indonesia'
+        'j3.role': 'Mentoring Team Leader — TFI Teach For Indonesia', 'aria.skip': 'Skip to content'
       },
       id: {
         'nav.tagline': 'Jaringan & Cloud', 'nav.about': 'Tentang', 'nav.work': 'Proyek', 'nav.journey': 'Perjalanan',
@@ -1352,7 +1356,7 @@
         'aria.logo': 'Andreas Tri Dewa Putra — kembali ke atas', 'aria.primary': 'Navigasi utama', 'aria.mobile': 'Navigasi seluler',
         'aria.focus': 'Bidang fokus', 'aria.stack': 'Tech stack', 'aria.footer': 'Footer',
         'j1.role': 'BINUS Entrepreneur Center — Anggota Panitia', 'j2.role': 'BINUS Festival — Anggota Panitia',
-        'j3.role': 'Ketua Tim Mentoring — TFI Teach For Indonesia'
+        'j3.role': 'Ketua Tim Mentoring — TFI Teach For Indonesia', 'aria.skip': 'Langsung ke konten'
       }
     };
     window.SITE_I18N = I18N;
