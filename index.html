@@ -13,7 +13,6 @@
 </script>
 <link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet">
 <style>
   /* ===== Signal / Noise tokens (see DESIGN.md) ===== */
   :root{
@@ -259,6 +258,33 @@
   .repo-skel{height:200px;border:2px dashed rgb(var(--c-on-surface)/.25);border-radius:20px;background:linear-gradient(90deg,transparent,rgb(var(--c-on-surface)/.06),transparent) 0 0/200% 100% no-repeat;animation:skel 1.4s ease-in-out infinite;}
   @keyframes skel{0%{background-position:150% 0}100%{background-position:-50% 0}}
   .repo-empty{grid-column:1/-1;}
+  /* ===== Stage 8: contact + footer ===== */
+  .contact-title{font-size:clamp(56px,12vw,148px);}
+  .contact-label{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgb(var(--c-outline));}
+  .email-box{display:flex;align-items:center;gap:10px;max-width:560px;padding:10px;border:2px solid rgb(var(--c-on-surface));border-radius:18px;background:rgb(var(--c-surface-low));box-shadow:6px 6px 0 0 rgb(var(--shadow-ink));}
+  .email-link{display:flex;align-items:center;gap:14px;min-width:0;flex:1;font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:clamp(14px,3.6vw,19px);letter-spacing:-.01em;color:rgb(var(--c-on-surface));}
+  .email-text{overflow-wrap:break-word;line-height:1.25;}
+  .email-link:hover span:last-child{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px;}
+  .copy-btn{display:inline-flex;align-items:center;gap:6px;flex:none;height:40px;padding:0 14px;border-radius:12px;border:2px solid rgb(var(--c-on-surface));font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgb(var(--c-on-surface));transition:background-color .2s,color .2s;}
+  .copy-btn:hover,.copy-btn.is-copied{background:rgb(var(--c-on-surface));color:rgb(var(--c-surface));}
+  @media (max-width:420px){.copy-btn .copy-hint{display:none;}}
+  .social-grid{display:grid;grid-template-columns:1fr;gap:12px;}
+  @media (min-width:480px){.social-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}}
+  .social-tile{display:flex;flex-direction:column;justify-content:space-between;gap:20px;min-height:92px;padding:16px;border:2px solid rgb(var(--c-on-surface));border-radius:16px;color:rgb(var(--c-on-surface));background:transparent;transition:background-color .2s,color .2s,transform .15s,box-shadow .15s;}
+  .social-wide{grid-column:1/-1;}
+  @media (min-width:480px){.social-tile{min-height:118px;gap:28px;}.social-wide{min-height:96px;}}
+  .social-tile:hover,.social-tile.is-copied{background:rgb(var(--c-on-surface));color:rgb(var(--c-surface));transform:translate(-2px,-2px);box-shadow:4px 4px 0 0 rgb(var(--c-signal));}
+  .social-tile:hover .text-outline,.social-tile.is-copied .text-outline{color:inherit;opacity:.7;}
+  .social-top{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  .social-name{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;}
+  .social-val{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:15px;line-height:1.25;letter-spacing:-.01em;overflow-wrap:break-word;}
+  .site-footer{background:#0A0A0A;color:#FAFAF7;border-top:2px solid rgb(250 250 247/.14);overflow:hidden;}
+  .dark .site-footer{background:#FAFAF7;color:#0A0A0A;border-top-color:rgb(10 10 10/.14);}
+  .footer-mark{font-family:"Space Grotesk",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:-.06em;line-height:.8;font-size:clamp(64px,19vw,280px);padding-top:40px;margin-left:-.04em;white-space:nowrap;}
+  .footer-row{display:flex;flex-direction:column;gap:20px;padding:28px 0 32px;margin-top:20px;border-top:2px solid currentColor;}
+  @media (min-width:1024px){.footer-row{flex-direction:row;align-items:center;justify-content:space-between;}}
+  .footer-link{opacity:.75;transition:opacity .2s;}
+  .footer-link:hover{opacity:1;text-decoration:underline;text-underline-offset:4px;}
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
     *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}
@@ -795,8 +821,63 @@
   </div>
 </section>
 
-<!-- SECTION 5: CONTACT & INFRASTRUCTURE ARCHITECTURE SPEC -->
-<section class="pt-space-xl pb-space-lg flex flex-col gap-space-xl" id="contact"><div class="bg-surface-container-low rounded-xl p-space-lg md:p-space-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-space-lg border border-surface-container-high"><div class="flex flex-col gap-space-xs max-w-2xl"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-secondary text-[18px]">verified</span><span class="font-label-sm text-label-sm text-secondary font-mono uppercase tracking-wider">INTERNSHIP INQUIRIES</span></div><h2 class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight">Looking for a motivated Network &amp; Infrastructure intern?</h2><p class="font-body-md text-body-md text-on-surface-variant">I am enthusiastic about applying my skills in enterprise networking, cloud infrastructure, automation, and systems programming to practical engineering teams. Feel free to connect!</p></div><div class="flex flex-wrap items-center gap-space-sm w-full md:w-auto"><a class="inline-flex items-center gap-space-xs bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md px-space-lg py-space-sm rounded-lg transition-all shadow-sm" href="mailto:andreastridewaputra@gmail.com"><span class="material-symbols-outlined text-[18px]">mail</span><span class="">Send Email</span></a><a class="inline-flex items-center gap-space-xs bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-md text-label-md px-space-lg py-space-sm rounded-lg transition-all" href="tel:+6281221926046"><span class="material-symbols-outlined text-[18px]">call</span><span class="">+62 812 2192 6046</span></a></div></div><div class="grid grid-cols-2 md:grid-cols-3 gap-space-sm"><a class="bg-surface-container-low hover:bg-surface-container rounded-lg p-space-md flex flex-col gap-space-xs transition-colors" href="mailto:andreastridewaputra@gmail.com"><span class="material-symbols-outlined text-primary text-[20px]">alternate_email</span><span class="font-label-sm text-label-sm text-outline">Email</span><span class="font-body-sm text-body-sm text-on-surface font-medium truncate">andreastridewaputra@gmail.com</span></a><a class="bg-surface-container-low hover:bg-surface-container rounded-lg p-space-md flex flex-col gap-space-xs transition-colors" href="https://www.linkedin.com/in/andreas-tri-dewa-putra-4684b7326" rel="noopener noreferrer" target="_blank"><span class="material-symbols-outlined text-tertiary text-[20px]">link</span><span class="font-label-sm text-label-sm text-outline">LinkedIn</span><span class="font-body-sm text-body-sm text-on-surface font-medium truncate">Andreas Tri Dewa Putra</span></a><a class="bg-surface-container-low hover:bg-surface-container rounded-lg p-space-md flex flex-col gap-space-xs transition-colors" href="https://github.com/rajaaavx" rel="noopener noreferrer" target="_blank"><span class="material-symbols-outlined text-secondary text-[20px]">code</span><span class="font-label-sm text-label-sm text-outline">GitHub</span><span class="font-body-sm text-body-sm text-on-surface font-medium truncate">github.com/rajaaavx</span></a><a class="bg-surface-container-low hover:bg-surface-container rounded-lg p-space-md flex flex-col gap-space-xs transition-colors" href="https://www.instagram.com/rajaaavx?vrfl=MTI3eGIxeW8wNjd3dA%3D%3D&amp;utm_source=qr" rel="noopener noreferrer" target="_blank"><span class="material-symbols-outlined text-tertiary text-[20px]">photo_camera</span><span class="font-label-sm text-label-sm text-outline">Instagram</span><span class="font-body-sm text-body-sm text-on-surface font-medium truncate">@rajaaavx</span></a><a class="bg-surface-container-low hover:bg-surface-container rounded-lg p-space-md flex flex-col gap-space-xs transition-colors" href="https://drive.google.com/file/d/1_z-vZbEhCz77ke15sfU7-fvEsZDbkWWw/view?usp=sharing" rel="noopener noreferrer" target="_blank"><span class="material-symbols-outlined text-secondary text-[20px]">description</span><span class="font-label-sm text-label-sm text-outline">Curriculum Vitae</span><span class="font-body-sm text-body-sm text-on-surface font-medium truncate">View on Google Drive ↗</span></a><button type="button" id="discord-copy-btn" class="bg-surface-container-low hover:bg-surface-container rounded-lg p-space-md flex flex-col gap-space-xs transition-colors text-left w-full cursor-pointer border-0" aria-label="Copy Discord username rajaaavx"><span class="material-symbols-outlined text-primary text-[20px]">chat</span><span class="font-label-sm text-label-sm text-outline">Discord</span><span class="font-body-sm text-body-sm text-on-surface font-medium truncate">rajaaavx <span id="discord-copy-hint" class="text-outline font-label-sm text-label-sm">(click to copy)</span></span></button></div></section>
+<!-- SECTION: CONTACT -->
+<section class="ink-section pt-20 md:pt-32 pb-16 md:pb-24" id="contact" aria-labelledby="contact-title">
+  <div class="grid lg:grid-cols-12 gap-12 lg:gap-16">
+    <div class="lg:col-span-7 min-w-0 flex flex-col gap-7">
+      <span class="sec-idx">05 // <span data-i18n="contact.idx">Contact</span></span>
+      <h2 id="contact-title" class="sec-title contact-title" data-i18n-html="contact.title">Let's<br>Connect</h2>
+      <div class="flex flex-col gap-3 max-w-xl">
+        <span class="eyebrow w-fit"><span class="live-dot" aria-hidden="true"></span><span data-i18n="contact.eyebrow">Internship inquiries</span></span>
+        <p class="font-display font-bold text-[22px] md:text-[28px] leading-tight tracking-[-0.02em] text-on-surface" data-i18n="contact.q">Looking for a motivated Network &amp; Infrastructure intern?</p>
+        <p class="font-body-lg text-body-lg text-on-surface-variant" data-i18n="contact.text">I am enthusiastic about applying my skills in enterprise networking, cloud infrastructure, automation, and systems programming to practical engineering teams. Feel free to connect!</p>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <p class="contact-label" data-i18n="contact.direct">Direct email</p>
+        <div class="email-box">
+          <a class="email-link" href="mailto:andreastridewaputra@gmail.com">
+            <span class="icon-tile icon-tile-ink shrink-0" aria-hidden="true"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg></span>
+            <span class="email-text">andreastridewaputra<wbr>@gmail.com</span>
+          </a>
+          <button type="button" class="copy-btn" data-copy="andreastridewaputra@gmail.com" aria-label="Copy email address" data-i18n-aria="contact.copyEmail">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="copy-hint" data-i18n="contact.copy">Copy</span>
+          </button>
+        </div>
+        <div class="flex flex-wrap gap-3 pt-1">
+          <a class="btn-ink" href="mailto:andreastridewaputra@gmail.com"><span data-i18n="contact.send">Send Email</span>
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn-outline" href="tel:+6281221926046">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+            <span>+62 812 2192 6046</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="lg:col-span-5 min-w-0 flex flex-col gap-3 lg:pt-14">
+      <p class="contact-label" data-i18n="contact.elsewhere">Find me elsewhere</p>
+      <div class="social-grid">
+        <a class="social-tile" href="https://www.linkedin.com/in/andreas-tri-dewa-putra-4684b7326" rel="noopener noreferrer" target="_blank">
+          <span class="social-top"><span class="social-name">LinkedIn</span><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+          <span class="social-val">Andreas Tri Dewa Putra</span></a>
+        <a class="social-tile" href="https://github.com/rajaaavx" rel="noopener noreferrer" target="_blank">
+          <span class="social-top"><span class="social-name">GitHub</span><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+          <span class="social-val">github.com/rajaaavx</span></a>
+        <a class="social-tile" href="https://www.instagram.com/rajaaavx?vrfl=MTI3eGIxeW8wNjd3dA%3D%3D&amp;utm_source=qr" rel="noopener noreferrer" target="_blank">
+          <span class="social-top"><span class="social-name">Instagram</span><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+          <span class="social-val">@rajaaavx</span></a>
+        <button type="button" class="social-tile text-left" data-copy="rajaaavx" aria-label="Copy Discord username rajaaavx" data-i18n-aria="contact.copyDiscord">
+          <span class="social-top"><span class="social-name">Discord</span><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></span>
+          <span class="social-val">rajaaavx <span class="copy-hint text-outline" data-i18n="contact.clickCopy">(click to copy)</span></span></button>
+        <a class="social-tile social-wide" href="https://drive.google.com/file/d/1_z-vZbEhCz77ke15sfU7-fvEsZDbkWWw/view?usp=sharing" rel="noopener noreferrer" target="_blank">
+          <span class="social-top"><span class="social-name" data-i18n="contact.cv">Curriculum Vitae</span><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+          <span class="social-val" data-i18n="contact.cvVal">View on Google Drive</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <script id="github-repos">
     /* GitHub repositories (selection logic unchanged) + Discord copy */
     (function () {
@@ -939,34 +1020,29 @@
 
       document.addEventListener('site:lang', function () { if (lastState !== 'loading') render(); });
 
-      function setupDiscordCopy() {
-        var btn = document.getElementById('discord-copy-btn');
-        var hint = document.getElementById('discord-copy-hint');
-        if (!btn) return;
-        var username = 'rajaaavx';
-        btn.addEventListener('click', function () {
-          function onCopied() {
-            if (hint) {
-              hint.textContent = '(copied!)';
-              setTimeout(function () { hint.textContent = '(click to copy)'; }, 2000);
-            }
-          }
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(username).then(onCopied).catch(function () {
-              window.prompt('Copy Discord username:', username);
-            });
-          } else {
-            window.prompt('Copy Discord username:', username);
-          }
-        });
-      }
-
       loadGitHubRepos();
-      setupDiscordCopy();
     })();
   </script>
 
-</div></main><footer class="w-full bg-surface-container-lowest mt-space-xl"><div class="max-w-7xl mx-auto px-margin md:px-margin-lg py-space-lg flex flex-col sm:flex-row items-center justify-between gap-space-md"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-primary font-bold">Andreas Tri Dewa Putra</span><span class="font-label-sm text-label-sm text-outline">•</span><span class="font-body-sm text-body-sm text-on-surface-variant">Computer Science, BINUS University</span></div><div class="flex items-center gap-space-md font-label-sm text-label-sm text-outline"><a class="hover:text-primary transition-colors" href="https://github.com/rajaaavx" rel="noopener noreferrer" target="_blank">GitHub</a><a class="hover:text-primary transition-colors" href="https://www.linkedin.com/in/andreas-tri-dewa-putra-4684b7326" rel="noopener noreferrer" target="_blank">LinkedIn</a><a class="hover:text-primary transition-colors" href="mailto:andreastridewaputra@gmail.com">Email</a><span class="">© 2025 All Rights Reserved.</span></div></div></footer>
+</div></main><footer class="site-footer">
+  <div class="max-w-7xl mx-auto px-margin md:px-margin-lg">
+    <p class="footer-mark" aria-hidden="true">Andreas<span class="text-signal">.</span></p>
+    <div class="footer-row">
+      <div class="flex flex-col gap-1">
+        <span class="font-display font-bold uppercase tracking-[-0.02em] text-[15px]">Andreas Tri Dewa Putra</span>
+        <span class="font-mono text-[11px] uppercase tracking-[0.1em] opacity-60" data-i18n="footer.sub">Computer Science, BINUS University</span>
+      </div>
+      <nav class="flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11px] uppercase tracking-[0.12em]" aria-label="Footer">
+        <a class="footer-link" href="https://github.com/rajaaavx" rel="noopener noreferrer" target="_blank">GitHub</a>
+        <a class="footer-link" href="https://www.linkedin.com/in/andreas-tri-dewa-putra-4684b7326" rel="noopener noreferrer" target="_blank">LinkedIn</a>
+        <a class="footer-link" href="mailto:andreastridewaputra@gmail.com">Email</a>
+        <a class="footer-link inline-flex items-center gap-1.5" href="#"><span data-i18n="footer.top">Back to top</span> ↑</a>
+      </nav>
+      <span class="font-mono text-[11px] uppercase tracking-[0.1em] opacity-60">© <span id="footer-year">2026</span> <span data-i18n="footer.rights">All Rights Reserved.</span></span>
+    </div>
+  </div>
+</footer>
+
 
 <script id="site-ui">
   /* ===== Site UI: language, theme, mobile menu, active nav (Stage 2) ===== */
@@ -1028,7 +1104,14 @@
         'repos.emptyStatus': 'No public non-fork repositories found for this account.',
         'repos.empty': 'No repositories to display yet. Visit the profile instead:',
         'repos.errorStatus': 'Could not load repositories. You can still browse GitHub directly.',
-        'repos.error': 'Repository list unavailable (network or rate limit). Open the profile instead:'
+        'repos.error': 'Repository list unavailable (network or rate limit). Open the profile instead:',
+        'contact.idx': 'Contact', 'contact.title': "Let's<br>Connect", 'contact.eyebrow': 'Internship inquiries',
+        'contact.q': 'Looking for a motivated Network & Infrastructure intern?',
+        'contact.text': 'I am enthusiastic about applying my skills in enterprise networking, cloud infrastructure, automation, and systems programming to practical engineering teams. Feel free to connect!',
+        'contact.direct': 'Direct email', 'contact.copy': 'Copy', 'contact.copied': 'Copied!', 'contact.copyFail': 'Copy failed',
+        'contact.clickCopy': '(click to copy)', 'contact.copyEmail': 'Copy email address', 'contact.copyDiscord': 'Copy Discord username rajaaavx',
+        'contact.send': 'Send Email', 'contact.elsewhere': 'Find me elsewhere', 'contact.cv': 'Curriculum Vitae', 'contact.cvVal': 'View on Google Drive',
+        'footer.sub': 'Computer Science, BINUS University', 'footer.top': 'Back to top', 'footer.rights': 'All Rights Reserved.'
       },
       id: {
         'nav.tagline': 'Jaringan & Cloud', 'nav.about': 'Tentang', 'nav.work': 'Proyek', 'nav.journey': 'Perjalanan',
@@ -1081,7 +1164,14 @@
         'repos.emptyStatus': 'Tidak ada repositori publik (non-fork) untuk akun ini.',
         'repos.empty': 'Belum ada repositori untuk ditampilkan. Kunjungi profilnya:',
         'repos.errorStatus': 'Repositori gagal dimuat. Kamu tetap bisa membuka GitHub secara langsung.',
-        'repos.error': 'Daftar repositori tidak tersedia (jaringan atau batas akses). Buka profilnya:'
+        'repos.error': 'Daftar repositori tidak tersedia (jaringan atau batas akses). Buka profilnya:',
+        'contact.idx': 'Kontak', 'contact.title': 'Mari<br>Terhubung', 'contact.eyebrow': 'Pertanyaan magang',
+        'contact.q': 'Mencari intern Network & Infrastructure yang termotivasi?',
+        'contact.text': 'Saya antusias menerapkan kemampuan di bidang enterprise networking, cloud infrastructure, otomasi, dan systems programming dalam tim engineering yang nyata. Jangan ragu untuk menghubungi saya!',
+        'contact.direct': 'Email langsung', 'contact.copy': 'Salin', 'contact.copied': 'Tersalin!', 'contact.copyFail': 'Gagal menyalin',
+        'contact.clickCopy': '(klik untuk menyalin)', 'contact.copyEmail': 'Salin alamat email', 'contact.copyDiscord': 'Salin username Discord rajaaavx',
+        'contact.send': 'Kirim Email', 'contact.elsewhere': 'Temukan saya di', 'contact.cv': 'Curriculum Vitae', 'contact.cvVal': 'Lihat di Google Drive',
+        'footer.sub': 'Computer Science, BINUS University', 'footer.top': 'Kembali ke atas', 'footer.rights': 'Hak cipta dilindungi.'
       }
     };
     window.SITE_I18N = I18N;
@@ -1167,6 +1257,38 @@
       el.textContent = d.toLocaleDateString(lang === 'id' ? 'id-ID' : 'en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).replace('.', '').toUpperCase();
     }
     document.addEventListener('site:lang', renderToday);
+
+    /* --- copy to clipboard: [data-copy] (email, Discord) --- */
+    function copyText(text) {
+      if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
+      return new Promise(function (resolve, reject) {
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta); ok ? resolve() : reject();
+      });
+    }
+    document.querySelectorAll('[data-copy]').forEach(function (btn) {
+      var hint = btn.querySelector('.copy-hint'), timer;
+      btn.addEventListener('click', function () {
+        var value = btn.getAttribute('data-copy');
+        function flash(key) {
+          btn.classList.add('is-copied');
+          if (hint) { hint.removeAttribute('data-i18n'); hint.textContent = t(key); }
+          clearTimeout(timer);
+          timer = setTimeout(function () {
+            btn.classList.remove('is-copied');
+            if (hint) { var k = hint.getAttribute('data-default-key'); hint.setAttribute('data-i18n', k); hint.textContent = t(k); }
+          }, 2000);
+        }
+        copyText(value).then(function () { flash('contact.copied'); }, function () { flash('contact.copyFail'); });
+      });
+      if (hint) hint.setAttribute('data-default-key', hint.getAttribute('data-i18n'));
+    });
+
+    var yearEl = document.getElementById('footer-year');
+    if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
     applyLang(lang);
   })();
