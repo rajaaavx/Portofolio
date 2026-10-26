@@ -242,6 +242,23 @@
     .tl-num{font-size:clamp(96px,10vw,152px);-webkit-text-stroke-width:2.5px;}
     .tl-badge{width:56px;height:56px;border-radius:14px;}
   }
+  /* ===== Stage 7: repositories ===== */
+  .repo-grid{display:grid;grid-template-columns:1fr;gap:24px;}
+  @media (min-width:768px){.repo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;}}
+  @media (min-width:1200px){.repo-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
+  .repo-card{gap:16px;padding:24px;min-height:200px;}
+  .repo-card .repo-link::after{content:"";position:absolute;inset:0;border-radius:18px;}
+  .repo-card:focus-within{box-shadow:9px 9px 0 0 rgb(var(--c-signal));}
+  .repo-card .repo-link:focus-visible{outline:none;}
+  .repo-name{font-family:"JetBrains Mono",monospace;font-size:15px;font-weight:600;letter-spacing:-.01em;color:rgb(var(--c-on-surface));overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .repo-arrow{display:grid;place-items:center;width:32px;height:32px;flex:none;border-radius:9999px;border:2px solid rgb(var(--c-on-surface));transition:background-color .2s,color .2s,transform .2s;}
+  @media (hover:hover){.repo-card:hover .repo-arrow{background:rgb(var(--c-on-surface));color:rgb(var(--c-surface));transform:rotate(45deg);}}
+  .repo-desc{font-size:14px;line-height:1.55;color:rgb(var(--c-on-surface-variant));display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+  .repo-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:auto;padding-top:14px;border-top:2px solid rgb(var(--c-on-surface)/.12);font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:rgb(var(--c-outline));}
+  .lang-dot{width:10px;height:10px;border-radius:9999px;border:1.5px solid rgb(var(--c-on-surface));}
+  .repo-skel{height:200px;border:2px dashed rgb(var(--c-on-surface)/.25);border-radius:20px;background:linear-gradient(90deg,transparent,rgb(var(--c-on-surface)/.06),transparent) 0 0/200% 100% no-repeat;animation:skel 1.4s ease-in-out infinite;}
+  @keyframes skel{0%{background-position:150% 0}100%{background-position:-50% 0}}
+  .repo-empty{grid-column:1/-1;}
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
     *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}
@@ -754,16 +771,43 @@
   </ol>
 </section>
 
-<!-- SECTION 4: GITHUB REPOSITORIES TELEMETRY -->
-<section class="py-space-xl" id="repositories"><div class="flex flex-col gap-space-lg"><div class="flex flex-col md:flex-row md:items-end justify-between gap-space-sm"><div class="flex flex-col gap-space-xs"><div class="flex items-center gap-space-xs"><span class="font-label-sm text-label-sm text-secondary font-mono uppercase">03 // REPOSITORIES</span><span class="w-8 h-[1px] bg-secondary/40"></span></div><h2 class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight">GitHub Repositories</h2><p class="font-body-md text-body-md text-on-surface-variant">Up to six public repositories loaded from the GitHub API (non-forks, sorted by relevance and recent activity).</p></div><a class="inline-flex items-center gap-space-xs text-primary hover:underline font-label-sm text-label-sm" href="https://github.com/rajaaavx" rel="noopener noreferrer" target="_blank"><span class="">github.com/rajaaavx</span><span class="material-symbols-outlined text-[14px]">north_east</span></a></div><p id="github-repos-status" class="font-body-sm text-body-sm text-on-surface-variant hidden" role="status" aria-live="polite"></p><div id="github-repos-grid" class="grid grid-cols-1 md:grid-cols-2 gap-space-md min-h-[4rem]"><div id="github-repos-loading" class="col-span-full bg-surface-container-low rounded-xl p-space-lg flex items-center gap-space-sm text-on-surface-variant"><span class="material-symbols-outlined text-primary opacity-80">progress_activity</span><span class="font-body-sm text-body-sm">Loading public repositories…</span></div></div></div></section>
+<!-- SECTION: REPOSITORIES -->
+<section class="py-20 md:py-28" id="repositories" aria-labelledby="repos-title">
+  <div class="sec-head lg:flex-row lg:items-end lg:justify-between lg:gap-10">
+    <div class="flex flex-col gap-3">
+      <span class="sec-idx">04 // <span data-i18n="repos.idx">Repos</span></span>
+      <h2 id="repos-title" class="sec-title" data-i18n-html="repos.title">GitHub<br>Repositories</h2>
+    </div>
+    <div class="flex flex-col gap-4 lg:items-end max-w-md">
+      <p class="font-body-lg text-body-lg text-on-surface-variant lg:text-right" data-i18n="repos.sub">Up to six public repositories loaded from the GitHub API (non-forks, sorted by relevance and recent activity).</p>
+      <a class="btn-outline w-fit" href="https://github.com/rajaaavx" rel="noopener noreferrer" target="_blank">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0 0 12 .5z"/></svg>
+        <span>github.com/rajaaavx</span>
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+    </div>
+  </div>
+  <p id="github-repos-status" class="font-mono text-[12px] uppercase tracking-[0.08em] text-on-surface-variant mb-6 hidden" role="status" aria-live="polite"></p>
+  <div id="github-repos-grid" class="repo-grid" aria-busy="true">
+    <div class="repo-skel" aria-hidden="true"></div><div class="repo-skel" aria-hidden="true"></div>
+    <div class="repo-skel hidden md:block" aria-hidden="true"></div><div class="repo-skel hidden md:block" aria-hidden="true"></div>
+    <p class="sr-only" data-i18n="repos.loading">Loading public repositories…</p>
+  </div>
+</section>
+
 <!-- SECTION 5: CONTACT & INFRASTRUCTURE ARCHITECTURE SPEC -->
 <section class="pt-space-xl pb-space-lg flex flex-col gap-space-xl" id="contact"><div class="bg-surface-container-low rounded-xl p-space-lg md:p-space-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-space-lg border border-surface-container-high"><div class="flex flex-col gap-space-xs max-w-2xl"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-secondary text-[18px]">verified</span><span class="font-label-sm text-label-sm text-secondary font-mono uppercase tracking-wider">INTERNSHIP INQUIRIES</span></div><h2 class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight">Looking for a motivated Network &amp; Infrastructure intern?</h2><p class="font-body-md text-body-md text-on-surface-variant">I am enthusiastic about applying my skills in enterprise networking, cloud infrastructure, automation, and systems programming to practical engineering teams. Feel free to connect!</p></div><div class="flex flex-wrap items-center gap-space-sm w-full md:w-auto"><a class="inline-flex items-center gap-space-xs bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md px-space-lg py-space-sm rounded-lg transition-all shadow-sm" href="mailto:andreastridewaputra@gmail.com"><span class="material-symbols-outlined text-[18px]">mail</span><span class="">Send Email</span></a><a class="inline-flex items-center gap-space-xs bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-md text-label-md px-space-lg py-space-sm rounded-lg transition-all" href="tel:+6281221926046"><span class="material-symbols-outlined text-[18px]">call</span><span class="">+62 812 2192 6046</span></a></div></div><div class="grid grid-cols-2 md:grid-cols-3 gap-space-sm"><a class="bg-surface-container-low hover:bg-surface-container rounded-lg p-space-md flex flex-col gap-space-xs transition-colors" href="mailto:andreastridewaputra@gmail.com"><span class="material-symbols-outlined text-primary text-[20px]">alternate_email</span><span class="font-label-sm text-label-sm text-outline">Email</span><span class="font-body-sm text-body-sm text-on-surface font-medium truncate">andreastridewaputra@gmail.com</span></a><a class="bg-surface-container-low hover:bg-surface-container rounded-lg p-space-md flex flex-col gap-space-xs transition-colors" href="https://www.linkedin.com/in/andreas-tri-dewa-putra-4684b7326" rel="noopener noreferrer" target="_blank"><span class="material-symbols-outlined text-tertiary text-[20px]">link</span><span class="font-label-sm text-label-sm text-outline">LinkedIn</span><span class="font-body-sm text-body-sm text-on-surface font-medium truncate">Andreas Tri Dewa Putra</span></a><a class="bg-surface-container-low hover:bg-surface-container rounded-lg p-space-md flex flex-col gap-space-xs transition-colors" href="https://github.com/rajaaavx" rel="noopener noreferrer" target="_blank"><span class="material-symbols-outlined text-secondary text-[20px]">code</span><span class="font-label-sm text-label-sm text-outline">GitHub</span><span class="font-body-sm text-body-sm text-on-surface font-medium truncate">github.com/rajaaavx</span></a><a class="bg-surface-container-low hover:bg-surface-container rounded-lg p-space-md flex flex-col gap-space-xs transition-colors" href="https://www.instagram.com/rajaaavx?vrfl=MTI3eGIxeW8wNjd3dA%3D%3D&amp;utm_source=qr" rel="noopener noreferrer" target="_blank"><span class="material-symbols-outlined text-tertiary text-[20px]">photo_camera</span><span class="font-label-sm text-label-sm text-outline">Instagram</span><span class="font-body-sm text-body-sm text-on-surface font-medium truncate">@rajaaavx</span></a><a class="bg-surface-container-low hover:bg-surface-container rounded-lg p-space-md flex flex-col gap-space-xs transition-colors" href="https://drive.google.com/file/d/1_z-vZbEhCz77ke15sfU7-fvEsZDbkWWw/view?usp=sharing" rel="noopener noreferrer" target="_blank"><span class="material-symbols-outlined text-secondary text-[20px]">description</span><span class="font-label-sm text-label-sm text-outline">Curriculum Vitae</span><span class="font-body-sm text-body-sm text-on-surface font-medium truncate">View on Google Drive ↗</span></a><button type="button" id="discord-copy-btn" class="bg-surface-container-low hover:bg-surface-container rounded-lg p-space-md flex flex-col gap-space-xs transition-colors text-left w-full cursor-pointer border-0" aria-label="Copy Discord username rajaaavx"><span class="material-symbols-outlined text-primary text-[20px]">chat</span><span class="font-label-sm text-label-sm text-outline">Discord</span><span class="font-body-sm text-body-sm text-on-surface font-medium truncate">rajaaavx <span id="discord-copy-hint" class="text-outline font-label-sm text-label-sm">(click to copy)</span></span></button></div></section>
-<script>
+<script id="github-repos">
+    /* GitHub repositories (selection logic unchanged) + Discord copy */
     (function () {
       var GITHUB_USER = 'rajaaavx';
       var API_URL = 'https://api.github.com/users/' + GITHUB_USER + '/repos?sort=updated&per_page=100';
       var MAX_REPOS = 6;
       var RELEVANCE = ['network', 'topology', 'cisco', 'packet', 'python', 'docker', 'azure', 'terraform', 'linux', 'go', 'ml', 'tensorflow', 'judge', 'icpc', 'portofolio', 'portfolio', 'security', 'infra'];
+      var lastRepos = null, lastState = 'loading';
+
+      function tr(key, fallback) { return (window.siteT && window.siteT(key)) || fallback; }
+      function curLang() { return document.documentElement.lang === 'id' ? 'id' : 'en'; }
 
       function escapeHtml(value) {
         return String(value)
@@ -775,9 +819,9 @@
       }
 
       function formatUpdated(iso) {
-        if (!iso) return 'Unknown date';
+        if (!iso) return tr('repos.unknownDate', 'Unknown date');
         try {
-          return new Date(iso).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+          return new Date(iso).toLocaleDateString(curLang() === 'id' ? 'id-ID' : 'en-GB', { year: 'numeric', month: 'short', day: 'numeric' });
         } catch (e) {
           return iso;
         }
@@ -803,44 +847,41 @@
         return list.slice(0, MAX_REPOS);
       }
 
-      function langDotClass(language) {
+      function langDotStyle(language) {
         var lang = (language || '').toLowerCase();
-        if (lang === 'go') return 'bg-tertiary';
-        if (lang === 'python' || lang === 'jupyter notebook') return 'bg-primary';
-        if (lang === 'c++') return 'bg-secondary';
-        return 'bg-outline';
+        if (lang === 'go') return 'background:rgb(var(--c-signal));border-color:rgb(var(--c-signal))';
+        if (lang === 'python' || lang === 'jupyter notebook') return 'background:rgb(var(--c-on-surface))';
+        if (lang === 'c++' || lang === 'c') return 'background:rgb(var(--c-outline))';
+        return 'background:transparent';
       }
+
+      var ARROW = '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>';
+      var BOOK = '<svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5V5a2 2 0 0 1 2-2h14v15H6.5A2.5 2.5 0 0 0 4 20.5 2.5 2.5 0 0 0 6.5 23H20v-5"/></svg>';
 
       function renderCard(repo) {
         var name = escapeHtml(repo.name || 'repository');
         var url = escapeHtml(repo.html_url || ('https://github.com/' + GITHUB_USER));
         var desc = repo.description
           ? escapeHtml(repo.description)
-          : '<span class="text-outline italic">No description provided.</span>';
-        var lang = repo.language ? escapeHtml(repo.language) : 'Not specified';
+          : '<span class="italic text-outline">' + escapeHtml(tr('repos.noDesc', 'No description provided.')) + '</span>';
+        var lang = repo.language ? escapeHtml(repo.language) : escapeHtml(tr('repos.noLang', 'Not specified'));
         var updated = escapeHtml(formatUpdated(repo.updated_at));
-        var dot = langDotClass(repo.language);
 
         return (
-          '<div class="bg-surface-container-low rounded-xl p-space-md flex flex-col justify-between gap-space-md hover:bg-surface-container transition-all">' +
-            '<div class="flex flex-col gap-space-xs">' +
-              '<div class="flex items-center justify-between gap-space-sm">' +
-                '<a class="font-label-lg text-label-lg text-primary hover:underline font-mono flex items-center gap-1 min-w-0" href="' + url + '" rel="noopener noreferrer" target="_blank">' +
-                  '<span class="truncate">' + name + '</span>' +
-                  '<span class="material-symbols-outlined text-[14px] shrink-0">north_east</span>' +
-                '</a>' +
-                '<span class="font-label-sm text-label-sm text-outline bg-surface-container px-space-xs py-0.5 rounded font-mono shrink-0">Public</span>' +
-              '</div>' +
-              '<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">' + desc + '</p>' +
+          '<article class="card-brut repo-card">' +
+            '<div class="flex items-center justify-between gap-3">' +
+              '<span class="chip-mono">' + escapeHtml(tr('repos.public', 'Public')) + '</span>' +
+              '<span class="repo-arrow" aria-hidden="true">' + ARROW + '</span>' +
             '</div>' +
-            '<div class="flex flex-wrap items-center gap-space-sm font-label-sm text-label-sm text-outline">' +
-              '<span class="flex items-center gap-1 text-on-surface">' +
-                '<span class="w-2 h-2 rounded-full ' + dot + '"></span>' + lang +
-              '</span>' +
-              '<span>•</span>' +
-              '<span>Updated ' + updated + '</span>' +
+            '<h3 class="flex items-center gap-2 min-w-0 text-on-surface">' + BOOK +
+              '<a class="repo-link repo-name" href="' + url + '" rel="noopener noreferrer" target="_blank">' + name + '</a>' +
+            '</h3>' +
+            '<p class="repo-desc">' + desc + '</p>' +
+            '<div class="repo-meta">' +
+              '<span class="flex items-center gap-2 text-on-surface"><span class="lang-dot" style="' + langDotStyle(repo.language) + '"></span>' + lang + '</span>' +
+              '<span>' + escapeHtml(tr('repos.updated', 'Updated')) + ' ' + updated + '</span>' +
             '</div>' +
-          '</div>'
+          '</article>'
         );
       }
 
@@ -851,14 +892,29 @@
         el.classList.toggle('hidden', !visible);
       }
 
-      function renderState(grid, html) {
-        grid.innerHTML = html;
+      function profileLink() {
+        return '<a class="btn-outline w-fit" href="https://github.com/' + escapeHtml(GITHUB_USER) + '" rel="noopener noreferrer" target="_blank">github.com/' + escapeHtml(GITHUB_USER) + ARROW + '</a>';
+      }
+
+      function render() {
+        var grid = document.getElementById('github-repos-grid');
+        if (!grid) return;
+        grid.setAttribute('aria-busy', String(lastState === 'loading'));
+        if (lastState === 'ok') {
+          setStatus('', false);
+          grid.innerHTML = lastRepos.map(renderCard).join('');
+        } else if (lastState === 'empty') {
+          setStatus(tr('repos.emptyStatus', 'No public non-fork repositories found for this account.'), true);
+          grid.innerHTML = '<div class="card-brut repo-empty"><p class="font-body-md text-body-md text-on-surface-variant">' +
+            escapeHtml(tr('repos.empty', 'No repositories to display yet. Visit the profile instead:')) + '</p>' + profileLink() + '</div>';
+        } else if (lastState === 'error') {
+          setStatus(tr('repos.errorStatus', 'Could not load repositories. You can still browse GitHub directly.'), true);
+          grid.innerHTML = '<div class="card-brut repo-empty"><p class="font-body-md text-body-md text-on-surface-variant">' +
+            escapeHtml(tr('repos.error', 'Repository list unavailable (network or rate limit). Open the profile instead:')) + '</p>' + profileLink() + '</div>';
+        }
       }
 
       async function loadGitHubRepos() {
-        var grid = document.getElementById('github-repos-grid');
-        if (!grid) return;
-
         try {
           var response = await fetch(API_URL, {
             headers: { Accept: 'application/vnd.github+json' }
@@ -870,34 +926,18 @@
           if (!Array.isArray(repos)) {
             throw new Error('Unexpected API response');
           }
-          var selected = pickRepos(repos);
-          if (selected.length === 0) {
-            setStatus('No public non-fork repositories found for this account.', true);
-            renderState(grid,
-              '<div class="col-span-full bg-surface-container-low rounded-xl p-space-lg text-on-surface-variant font-body-sm text-body-sm">' +
-                'No repositories to display yet. Visit <a class="text-primary hover:underline" href="https://github.com/' + escapeHtml(GITHUB_USER) + '" rel="noopener noreferrer" target="_blank">github.com/' + escapeHtml(GITHUB_USER) + '</a>.' +
-              '</div>'
-            );
-            return;
-          }
-          setStatus('', false);
-          renderState(grid, selected.map(renderCard).join(''));
+          lastRepos = pickRepos(repos);
+          lastState = lastRepos.length ? 'ok' : 'empty';
         } catch (err) {
-          setStatus('Could not load repositories. You can still browse GitHub directly.', true);
-          renderState(grid,
-            '<div class="col-span-full bg-surface-container-low rounded-xl p-space-lg flex flex-col gap-space-sm text-on-surface-variant">' +
-              '<p class="font-body-sm text-body-sm">Repository list unavailable (network or rate limit). Open the profile instead:</p>' +
-              '<a class="inline-flex items-center gap-space-xs text-primary hover:underline font-label-sm text-label-sm w-fit" href="https://github.com/' + escapeHtml(GITHUB_USER) + '" rel="noopener noreferrer" target="_blank">' +
-                'github.com/' + escapeHtml(GITHUB_USER) +
-                '<span class="material-symbols-outlined text-[14px]">north_east</span>' +
-              '</a>' +
-            '</div>'
-          );
+          lastState = 'error';
           if (typeof console !== 'undefined' && console.warn) {
             console.warn('GitHub repos fetch failed:', err);
           }
         }
+        render();
       }
+
+      document.addEventListener('site:lang', function () { if (lastState !== 'loading') render(); });
 
       function setupDiscordCopy() {
         var btn = document.getElementById('discord-copy-btn');
@@ -925,6 +965,7 @@
       setupDiscordCopy();
     })();
   </script>
+
 </div></main><footer class="w-full bg-surface-container-lowest mt-space-xl"><div class="max-w-7xl mx-auto px-margin md:px-margin-lg py-space-lg flex flex-col sm:flex-row items-center justify-between gap-space-md"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-primary font-bold">Andreas Tri Dewa Putra</span><span class="font-label-sm text-label-sm text-outline">•</span><span class="font-body-sm text-body-sm text-on-surface-variant">Computer Science, BINUS University</span></div><div class="flex items-center gap-space-md font-label-sm text-label-sm text-outline"><a class="hover:text-primary transition-colors" href="https://github.com/rajaaavx" rel="noopener noreferrer" target="_blank">GitHub</a><a class="hover:text-primary transition-colors" href="https://www.linkedin.com/in/andreas-tri-dewa-putra-4684b7326" rel="noopener noreferrer" target="_blank">LinkedIn</a><a class="hover:text-primary transition-colors" href="mailto:andreastridewaputra@gmail.com">Email</a><span class="">© 2025 All Rights Reserved.</span></div></div></footer>
 
 <script id="site-ui">
@@ -979,7 +1020,15 @@
         'j3.period': 'Sep – Oct 2025', 'j3.t1': 'Team Lead & Curriculum Coordinator',
         'j3.desc': 'Led 5 volunteers over 3 weeks (5 teaching sessions): task allocation, scheduling, curriculum delivery, and stakeholder updates for a PAUD community project.',
         'j4.sub': 'Computer Science — Network Technology',
-        'j4.desc': 'Bachelor of Computer Science undergraduate, specializing in Network Technology.'
+        'j4.desc': 'Bachelor of Computer Science undergraduate, specializing in Network Technology.',
+        'repos.idx': 'Repos', 'repos.title': 'GitHub<br>Repositories',
+        'repos.sub': 'Up to six public repositories loaded from the GitHub API (non-forks, sorted by relevance and recent activity).',
+        'repos.loading': 'Loading public repositories…', 'repos.public': 'Public', 'repos.updated': 'Updated',
+        'repos.noDesc': 'No description provided.', 'repos.noLang': 'Not specified', 'repos.unknownDate': 'Unknown date',
+        'repos.emptyStatus': 'No public non-fork repositories found for this account.',
+        'repos.empty': 'No repositories to display yet. Visit the profile instead:',
+        'repos.errorStatus': 'Could not load repositories. You can still browse GitHub directly.',
+        'repos.error': 'Repository list unavailable (network or rate limit). Open the profile instead:'
       },
       id: {
         'nav.tagline': 'Jaringan & Cloud', 'nav.about': 'Tentang', 'nav.work': 'Proyek', 'nav.journey': 'Perjalanan',
@@ -1024,7 +1073,15 @@
         'j3.period': 'Sep – Okt 2025', 'j3.t1': 'Ketua Tim & Koordinator Kurikulum',
         'j3.desc': 'Memimpin 5 relawan selama 3 minggu (5 sesi mengajar): pembagian tugas, penjadwalan, penyampaian kurikulum, dan pembaruan kepada pemangku kepentingan untuk proyek komunitas PAUD.',
         'j4.sub': 'Computer Science — Network Technology',
-        'j4.desc': 'Mahasiswa S1 Ilmu Komputer dengan peminatan Network Technology.'
+        'j4.desc': 'Mahasiswa S1 Ilmu Komputer dengan peminatan Network Technology.',
+        'repos.idx': 'Repositori', 'repos.title': 'Repositori<br>GitHub',
+        'repos.sub': 'Hingga enam repositori publik yang dimuat dari GitHub API (bukan fork, diurutkan berdasarkan relevansi dan aktivitas terbaru).',
+        'repos.loading': 'Memuat repositori publik…', 'repos.public': 'Publik', 'repos.updated': 'Diperbarui',
+        'repos.noDesc': 'Belum ada deskripsi.', 'repos.noLang': 'Tidak disebutkan', 'repos.unknownDate': 'Tanggal tidak diketahui',
+        'repos.emptyStatus': 'Tidak ada repositori publik (non-fork) untuk akun ini.',
+        'repos.empty': 'Belum ada repositori untuk ditampilkan. Kunjungi profilnya:',
+        'repos.errorStatus': 'Repositori gagal dimuat. Kamu tetap bisa membuka GitHub secara langsung.',
+        'repos.error': 'Daftar repositori tidak tersedia (jaringan atau batas akses). Buka profilnya:'
       }
     };
     window.SITE_I18N = I18N;
