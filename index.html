@@ -374,6 +374,9 @@
   .mascot.walking .m-leg2{animation:legB .36s steps(1) infinite;}
   .mascot.walking .m-arm{animation:armSwing .36s steps(1) infinite;}
   .mascot.walking .m-plug{animation:plugSwing .36s steps(1) infinite;}
+  .mascot-r.walking .m-body,.mascot-r.walking .m-leg1,.mascot-r.walking .m-leg2,.mascot-r.walking .m-arm,.mascot-r.walking .m-plug{animation-duration:.44s;animation-delay:-.2s;}
+  .mascot-r .m-arc{animation-duration:2.3s;}
+  .mascot-r .m-arc1{animation-delay:-.9s}.mascot-r .m-arc2{animation-delay:-.6s}.mascot-r .m-arc3{animation-delay:-.3s}
   @keyframes bob{0%{transform:none}50%{transform:translateY(-1px)}}
   @keyframes legA{0%{transform:translate(1px,-1px)}50%{transform:translate(-1px,0)}}
   @keyframes legB{0%{transform:translate(-1px,0)}50%{transform:translate(1px,-1px)}}
@@ -388,7 +391,7 @@
   .bubble::before{content:"";position:absolute;bottom:-4px;width:6px;height:5px;background:#FAFAF7;z-index:1;clip-path:polygon(0 0,100% 0,0 100%);}
   .bubble-l{right:30%;transform-origin:bottom right;}
   .bubble-l::after{right:10px;transform:scaleX(-1);}.bubble-l::before{right:12px;transform:scaleX(-1);}
-  .bubble-r{left:30%;transform-origin:bottom left;}
+  .bubble-r{left:18%;transform-origin:bottom left;}
   .bubble-r::after{left:10px;}.bubble-r::before{left:12px;}
   .mascots.met .bubble{opacity:1;transform:none;}
   .mascots.met .bubble-l{transition-delay:.15s;}
@@ -1255,11 +1258,11 @@
 </div></main><!-- Mascots: two pixel routers that walk toward each other as you scroll and chat at the end -->
 <div id="mascots" class="mascots" aria-hidden="true">
   <div class="mascot mascot-l" data-face="right">
-    <div class="bubble bubble-l"><span>Let&#39;s connect?</span></div>
+    <div class="bubble bubble-l"><span>Let&#39;s connect!</span></div>
     <svg class="mascot-svg" viewBox="0 0 24 23" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect x="7" y="22" width="13" height="1" fill="#0A0A0A" opacity=".18" class="m-shadow"/><g class="m-arcs"><g class="m-arc m-arc1"><rect x="6" y="5" width="1" height="1" fill="#8A8A85"/><rect x="7" y="4" width="4" height="1" fill="#8A8A85"/><rect x="11" y="5" width="1" height="1" fill="#8A8A85"/></g><g class="m-arc m-arc2"><rect x="4" y="4" width="1" height="1" fill="#8A8A85"/><rect x="5" y="3" width="1" height="1" fill="#8A8A85"/><rect x="6" y="2" width="6" height="1" fill="#8A8A85"/><rect x="12" y="3" width="1" height="1" fill="#8A8A85"/><rect x="13" y="4" width="1" height="1" fill="#8A8A85"/></g><g class="m-arc m-arc3"><rect x="2" y="3" width="1" height="1" fill="#8A8A85"/><rect x="3" y="2" width="1" height="1" fill="#8A8A85"/><rect x="4" y="1" width="1" height="1" fill="#8A8A85"/><rect x="5" y="0" width="8" height="1" fill="#8A8A85"/><rect x="13" y="1" width="1" height="1" fill="#8A8A85"/><rect x="14" y="2" width="1" height="1" fill="#8A8A85"/><rect x="15" y="3" width="1" height="1" fill="#8A8A85"/></g></g><g class="m-leg m-leg1"><rect x="9" y="19" width="3" height="4" fill="#0A0A0A"/><rect x="10" y="19" width="1" height="3" fill="#FAFAF7"/></g><g class="m-leg m-leg2"><rect x="15" y="19" width="3" height="4" fill="#0A0A0A"/><rect x="16" y="19" width="1" height="3" fill="#FAFAF7"/></g><g class="m-body"><rect x="8" y="6" width="2" height="3" fill="#0A0A0A"/><rect x="8" y="5" width="2" height="1" fill="#0A0A0A"/><rect x="9" y="6" width="1" height="2" fill="#A9A9A4"/><g class="m-plug"><rect x="0" y="11" width="3" height="5" fill="#0A0A0A"/><rect x="1" y="12" width="1" height="3" fill="#CFCFCA"/><rect x="1" y="16" width="1" height="2" fill="#8A8A85"/></g><rect x="1" y="18" width="1" height="1" fill="#8A8A85"/><rect x="2" y="19" width="2" height="1" fill="#8A8A85"/><rect x="4" y="18" width="1" height="1" fill="#8A8A85"/><rect x="5" y="8" width="15" height="12" fill="#0A0A0A"/><rect x="4" y="9" width="17" height="10" fill="#0A0A0A"/><rect x="5" y="9" width="3" height="10" fill="#CFCFCA"/><rect x="5" y="17" width="3" height="2" fill="#A9A9A4"/><rect x="8" y="9" width="1" height="10" fill="#0A0A0A"/><rect x="9" y="9" width="11" height="10" fill="#FAFAF7"/><rect x="9" y="17" width="11" height="1" fill="#EDEDE8"/><g class="m-eyes"><rect x="11" y="12" width="2" height="2" fill="#0A0A0A"/><rect x="16" y="12" width="2" height="2" fill="#0A0A0A"/></g><rect x="12" y="15" width="1" height="1" fill="#0A0A0A"/><rect x="13" y="16" width="3" height="1" fill="#0A0A0A"/><rect x="16" y="15" width="1" height="1" fill="#0A0A0A"/><rect x="10" y="14" width="1" height="1" fill="#E6B9C2"/><rect x="18" y="14" width="1" height="1" fill="#E6B9C2"/><g class="m-arm"><rect x="20" y="13" width="2" height="4" fill="#0A0A0A"/><rect x="20" y="14" width="1" height="2" fill="#FAFAF7"/></g></g></svg>
   </div>
   <div class="mascot mascot-r" data-face="left">
-    <div class="bubble bubble-r"><span>Let&#39;s connect!</span></div>
+    <div class="bubble bubble-r"><span>Okayy!</span></div>
     <svg class="mascot-svg" viewBox="0 0 24 23" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><rect x="7" y="22" width="13" height="1" fill="#0A0A0A" opacity=".18" class="m-shadow"/><g class="m-arcs"><g class="m-arc m-arc1"><rect x="6" y="5" width="1" height="1" fill="#8A8A85"/><rect x="7" y="4" width="4" height="1" fill="#8A8A85"/><rect x="11" y="5" width="1" height="1" fill="#8A8A85"/></g><g class="m-arc m-arc2"><rect x="4" y="4" width="1" height="1" fill="#8A8A85"/><rect x="5" y="3" width="1" height="1" fill="#8A8A85"/><rect x="6" y="2" width="6" height="1" fill="#8A8A85"/><rect x="12" y="3" width="1" height="1" fill="#8A8A85"/><rect x="13" y="4" width="1" height="1" fill="#8A8A85"/></g><g class="m-arc m-arc3"><rect x="2" y="3" width="1" height="1" fill="#8A8A85"/><rect x="3" y="2" width="1" height="1" fill="#8A8A85"/><rect x="4" y="1" width="1" height="1" fill="#8A8A85"/><rect x="5" y="0" width="8" height="1" fill="#8A8A85"/><rect x="13" y="1" width="1" height="1" fill="#8A8A85"/><rect x="14" y="2" width="1" height="1" fill="#8A8A85"/><rect x="15" y="3" width="1" height="1" fill="#8A8A85"/></g></g><g class="m-leg m-leg1"><rect x="9" y="19" width="3" height="4" fill="#0A0A0A"/><rect x="10" y="19" width="1" height="3" fill="#FAFAF7"/></g><g class="m-leg m-leg2"><rect x="15" y="19" width="3" height="4" fill="#0A0A0A"/><rect x="16" y="19" width="1" height="3" fill="#FAFAF7"/></g><g class="m-body"><rect x="8" y="6" width="2" height="3" fill="#0A0A0A"/><rect x="8" y="5" width="2" height="1" fill="#0A0A0A"/><rect x="9" y="6" width="1" height="2" fill="#A9A9A4"/><g class="m-plug"><rect x="0" y="11" width="3" height="5" fill="#0A0A0A"/><rect x="1" y="12" width="1" height="3" fill="#CFCFCA"/><rect x="1" y="16" width="1" height="2" fill="#8A8A85"/></g><rect x="1" y="18" width="1" height="1" fill="#8A8A85"/><rect x="2" y="19" width="2" height="1" fill="#8A8A85"/><rect x="4" y="18" width="1" height="1" fill="#8A8A85"/><rect x="5" y="8" width="15" height="12" fill="#0A0A0A"/><rect x="4" y="9" width="17" height="10" fill="#0A0A0A"/><rect x="5" y="9" width="3" height="10" fill="#CFCFCA"/><rect x="5" y="17" width="3" height="2" fill="#A9A9A4"/><rect x="8" y="9" width="1" height="10" fill="#0A0A0A"/><rect x="9" y="9" width="11" height="10" fill="#FAFAF7"/><rect x="9" y="17" width="11" height="1" fill="#EDEDE8"/><g class="m-eyes"><rect x="11" y="12" width="2" height="2" fill="#0A0A0A"/><rect x="16" y="12" width="2" height="2" fill="#0A0A0A"/></g><rect x="12" y="15" width="1" height="1" fill="#0A0A0A"/><rect x="13" y="16" width="3" height="1" fill="#0A0A0A"/><rect x="16" y="15" width="1" height="1" fill="#0A0A0A"/><rect x="10" y="14" width="1" height="1" fill="#E6B9C2"/><rect x="18" y="14" width="1" height="1" fill="#E6B9C2"/><g class="m-arm"><rect x="20" y="13" width="2" height="4" fill="#0A0A0A"/><rect x="20" y="14" width="1" height="2" fill="#FAFAF7"/></g></g></svg>
   </div>
 </div>
@@ -1578,10 +1581,14 @@
         var W = window.innerWidth, cw = mL.offsetWidth;
         var max = document.documentElement.scrollHeight - window.innerHeight;
         var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 1;
-        var start = W < 768 ? 8 : 24, end = W / 2 - cw - (W < 768 ? 2 : 6);
-        var x = Math.round(start + (end - start) * p);
-        mL.style.transform = 'translateX(' + x + 'px)';
-        mR.style.transform = 'translateX(' + (-x) + 'px)';
+        var start = W < 768 ? 8 : 24, gap = W < 768 ? 4 : 12;
+        // meeting point at 3/4 of the screen (pulled in on narrow phones so the reply bubble fits)
+        var bubbleR = stage.querySelector('.bubble-r').offsetWidth || 80;
+        var meet = Math.min(W * 0.75, W - cw - bubbleR * 0.85 - 8);
+        var endL = meet - gap / 2 - cw, endR = W - (meet + gap / 2) - cw;
+        var xL = Math.round(start + (endL - start) * p), xR = Math.round(start + (endR - start) * p);
+        mL.style.transform = 'translateX(' + xL + 'px)';
+        mR.style.transform = 'translateX(' + (-xR) + 'px)';
         var met = p > 0.985;
         stage.classList.toggle('met', met);
         if (met) { mL.setAttribute('data-face', 'right'); mR.setAttribute('data-face', 'left'); }
