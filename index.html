@@ -338,13 +338,26 @@
   @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
   @keyframes pillIn{from{opacity:0;transform:translateY(14px) rotate(0deg) scale(.92)}to{opacity:1;transform:rotate(var(--r,0deg))}}
   .motion-ok #site-header{animation:fadeDown .6s ease backwards 1.15s;}
-  .motion-ok .hero .eyebrow{animation:fadeUp .6s ease backwards 1.2s;}
-  .motion-ok .hero-name>span{display:block;animation:nameReveal 1.1s cubic-bezier(.25,.6,.25,1) backwards 1.1s;}
-  .motion-ok .hero-name>span:nth-child(2){animation-delay:1.25s;}
-  .motion-ok .hero-pills .pill{animation:pillIn .5s cubic-bezier(.2,.7,.2,1) backwards;}
-  .motion-ok .hero-pills .pill:nth-child(1){animation-delay:1.45s}.motion-ok .hero-pills .pill:nth-child(2){animation-delay:1.51s}
-  .motion-ok .hero-pills .pill:nth-child(3){animation-delay:1.57s}.motion-ok .hero-pills .pill:nth-child(4){animation-delay:1.63s}
-  .motion-ok .hero-pills .pill:nth-child(5){animation-delay:1.69s}
+  /* name: glitch flicker while the letters scramble (JS), then settles */
+  .motion-ok .hero-name>span{display:block;animation:glitchIn .5s steps(1) backwards 1.05s;}
+  @keyframes glitchIn{0%{opacity:0}20%{opacity:1}30%{opacity:.15}45%{opacity:1}55%{opacity:.4}65%,100%{opacity:1}}
+  .hero-name.glitching .g-txt{white-space:nowrap;}
+  .hero-name.glitching>span{animation:glitchJitter .42s steps(1) infinite;text-shadow:-.035em 0 0 rgb(var(--c-signal)),.03em 0 0 rgb(var(--c-on-surface)/.35);}
+  .hero-name.glitching>span:nth-child(2){animation-duration:.36s;animation-delay:-.11s;}
+  @keyframes glitchJitter{
+    0%{transform:none;clip-path:inset(0 0 0 0)}
+    15%{transform:translate(-.03em,.01em) skewX(-6deg);clip-path:inset(12% 0 48% 0)}
+    30%{transform:translate(.025em,0);clip-path:inset(0 0 0 0)}
+    48%{transform:translate(.04em,-.01em);clip-path:inset(55% 0 8% 0)}
+    62%{transform:none;clip-path:inset(0 0 0 0)}
+    80%{transform:translate(-.02em,.015em) skewX(4deg);clip-path:inset(30% 0 30% 0)}
+  }
+  .hero-name.glitch-done>span{animation:glitchFlash .35s steps(2) 1;}
+  .motion-ok .hero-name.entered>span{animation:none;}
+  @keyframes glitchFlash{0%{text-shadow:-.05em 0 0 rgb(var(--c-signal));transform:translateX(.02em)}100%{text-shadow:none;transform:none}}
+  /* pills + eyebrow fall in with JS physics; hidden until their drop starts */
+  .drop-ready .drop-item{opacity:0;}
+  .drop-item.dropping{opacity:1;will-change:transform;transition:none!important;animation:none!important;}
   .motion-ok .hero-cmd{animation:fadeUp .6s ease backwards 1.6s;}
   .motion-ok .hero-name~div{animation:fadeUp .7s ease backwards 1.7s;}
   .motion-ok .status-strip{animation:fadeUp .7s ease backwards 1.85s;}
@@ -551,9 +564,9 @@
       <li class="pill" style="--r:-2deg">System Programming</li>
     </ul>
 
-    <h1 id="hero-name" class="hero-name">
-      <span class="block">Andreas</span>
-      <span class="block">Tri Dewa<span class="sm:hidden"><br></span><span class="hidden sm:inline"> </span>Putra</span>
+    <h1 id="hero-name" class="hero-name" aria-label="Andreas Tri Dewa Putra">
+      <span class="block" aria-hidden="true"><span class="g-txt">Andreas</span></span>
+      <span class="block" aria-hidden="true"><span class="g-txt">Tri Dewa</span><span class="sm:hidden"><br></span><span class="hidden sm:inline"> </span><span class="g-txt">Putra</span></span>
     </h1>
 
     <p class="hero-cmd" aria-hidden="true">$ whoami --short<br>andreas_tri_dewa_putra · cs_student(network_technology) · stack=[azure, cisco, docker, linux, go, python] · status=open_to_internship</p>
@@ -1685,6 +1698,88 @@
       document.addEventListener('mousedown', function () { ring.classList.add('down'); });
       document.addEventListener('mouseup', function () { ring.classList.remove('down'); });
       document.documentElement.addEventListener('mouseleave', function () { ring.classList.remove('on'); });
+    })();
+
+    /* --- hero entrance: glitching name + pills that fall with simple physics --- */
+    (function () {
+      if (!root.classList.contains('motion-ok')) return;
+      var START = 1050;                                    // ms after navigation, i.e. as the curtain clears
+      var since = function () { return performance.now(); };
+
+      /* name glitch: scramble every letter, then lock them in left to right */
+      var h1 = document.getElementById('hero-name');
+      var parts = h1 ? Array.prototype.slice.call(h1.querySelectorAll('.g-txt')) : [];
+      var CHARS = 'ABDEHKNOPRSTUXZ#%&$@0123456789/<>';
+      var finals = parts.map(function (el) { return el.textContent; });
+      function rnd() { return CHARS.charAt(Math.floor(Math.random() * CHARS.length)); }
+      function scrambleText(txt, locked) {
+        var out = '';
+        for (var i = 0; i < txt.length; i++) out += (i < locked || txt[i] === ' ') ? txt[i] : rnd();
+        return out;
+      }
+      if (parts.length) {
+        parts.forEach(function (el, i) { el.textContent = scrambleText(finals[i], 0); });
+        setTimeout(function () {
+          h1.classList.add('glitching');
+          var total = finals.join('').length, t0 = since(), HOLD = 380, RESOLVE = 900, last = 0;
+          (function tick() {
+            var now = since();
+            if (now - last > 45) {                        // ~22 fps scramble feels more "digital"
+              last = now;
+              var k = Math.max(0, Math.min(1, (now - t0 - HOLD) / RESOLVE));
+              var lockedTotal = Math.floor(k * total), used = 0;
+              parts.forEach(function (el, i) {
+                var n = Math.max(0, Math.min(finals[i].length, lockedTotal - used));
+                el.textContent = scrambleText(finals[i], n);
+                used += finals[i].length;
+              });
+              if (k >= 1) {
+                parts.forEach(function (el, i) { el.textContent = finals[i]; });
+                h1.classList.remove('glitching'); h1.classList.add('glitch-done');
+                setTimeout(function () { h1.classList.remove('glitch-done'); h1.classList.add('entered'); }, 400);
+                return;
+              }
+            }
+            requestAnimationFrame(tick);
+          })();
+        }, Math.max(0, START - since()));
+      }
+
+      /* falling pills: gravity + damped bounce + squash, springy sway and rotation into place */
+      var items = Array.prototype.slice.call(document.querySelectorAll('.hero .eyebrow, .hero-pills .pill'));
+      if (!items.length) return;
+      root.classList.add('drop-ready');
+      items.forEach(function (el) { el.classList.add('drop-item'); });
+      function targetRot(el) { var r = parseFloat(getComputedStyle(el).getPropertyValue('--r')); return isNaN(r) ? 0 : r; }
+      function drop(el, delay) {
+        setTimeout(function () {
+          var G = 3200, y = -(220 + Math.random() * 180), vy = 0;
+          var x = (Math.random() - .5) * 60, vx = 0;
+          var tr = targetRot(el), rot = tr + (Math.random() < .5 ? -1 : 1) * (12 + Math.random() * 18), vr = 0;
+          var squash = 0, prev = null, bounces = 0, t0 = since();
+          el.classList.add('dropping');
+          (function frame(ts) {
+            if (prev === null) prev = ts;
+            var dt = Math.min(1 / 30, (ts - prev) / 1000); prev = ts;
+            vy += G * dt; y += vy * dt;
+            if (y > 0) { y = 0; if (Math.abs(vy) > 90 && bounces < 4) { vy = -vy * (bounces ? .32 : .42); squash = Math.min(1, Math.abs(vy) / 900 + .35); vr += (Math.random() - .5) * 140; bounces++; } else vy = 0; }
+            vx += (-90 * x - 11 * vx) * dt; x += vx * dt;                 // spring back to its spot
+            vr += (-70 * (rot - tr) - 9 * vr) * dt; rot += vr * dt;      // spring into its resting tilt
+            squash *= Math.pow(.0015, dt);
+            var sx = 1 + .12 * squash, sy = 1 - .16 * squash;
+            el.style.transform = 'translate(' + x.toFixed(2) + 'px,' + y.toFixed(2) + 'px) rotate(' + rot.toFixed(2) + 'deg) scale(' + sx.toFixed(3) + ',' + sy.toFixed(3) + ')';
+            el.style.transformOrigin = '50% 100%';
+            var settled = y === 0 && vy === 0 && Math.abs(x) < .3 && Math.abs(vx) < 2 && Math.abs(rot - tr) < .2 && Math.abs(vr) < 2 && squash < .01;
+            if (settled || since() - t0 > 3200) {
+              el.style.transform = ''; el.style.transformOrigin = ''; el.classList.remove('dropping', 'drop-item');
+              return;
+            }
+            requestAnimationFrame(frame);
+          })(since());
+        }, delay);
+      }
+      var base = Math.max(0, START + 120 - since());
+      items.forEach(function (el, i) { drop(el, base + i * 95 + Math.random() * 60); });
     })();
 
     /* --- motion: scroll reveal + timeline draw (skipped under reduced motion) --- */
