@@ -285,6 +285,24 @@
   @media (min-width:1024px){.footer-row{flex-direction:row;align-items:center;justify-content:space-between;}}
   .footer-link{opacity:.75;transition:opacity .2s;}
   .footer-link:hover{opacity:1;text-decoration:underline;text-underline-offset:4px;}
+  /* ===== Stage 9: certificates ===== */
+  .certs{margin-top:96px;padding-top:56px;border-top:2px solid rgb(var(--c-on-surface));}
+  @media (min-width:1024px){.certs{margin-top:128px;}}
+  .certs .sec-idx{font-size:11px;}
+  .certs-title{font-family:"Space Grotesk",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:-.05em;line-height:.9;font-size:clamp(36px,6vw,64px);color:rgb(var(--c-on-surface));}
+  .cert-grid{display:grid;grid-template-columns:1fr;gap:24px;}
+  @media (min-width:768px){.cert-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;}}
+  @media (min-width:1200px){.cert-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
+  .cert-card{gap:16px;padding:22px;}
+  .cert-card .tl-period{text-align:right;}
+  .cert-name{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:20px;line-height:1.15;letter-spacing:-.02em;color:rgb(var(--c-on-surface));}
+  .cert-meta{display:flex;flex-wrap:wrap;gap:10px 24px;padding-top:12px;border-top:2px solid rgb(var(--c-on-surface)/.12);}
+  .cert-meta dt{font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgb(var(--c-outline));}
+  .cert-meta dd{font-size:13px;font-weight:600;color:rgb(var(--c-on-surface));overflow-wrap:anywhere;}
+  .cert-action{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:9999px;border:2px solid rgb(var(--c-on-surface));font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgb(var(--c-on-surface));transition:background-color .2s,color .2s,transform .15s;}
+  .cert-action:hover{transform:translate(-1px,-1px);background:rgb(var(--c-on-surface));color:rgb(var(--c-surface));}
+  .cert-action-ink{background:rgb(var(--c-on-surface));color:rgb(var(--c-surface));}
+  .cert-action-ink:hover{box-shadow:3px 3px 0 0 rgb(var(--c-signal));}
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
     *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}
@@ -795,6 +813,115 @@
     </li>
 
   </ol>
+
+  <!-- Certificates (part of Journey) -->
+  <div class="certs" id="certificates">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+      <div class="flex flex-col gap-3">
+        <span class="sec-idx" data-i18n="certs.idx">Credentials</span>
+        <h3 class="certs-title" data-i18n="certs.title">Certificates</h3>
+      </div>
+      <p class="font-body-md text-body-md text-on-surface-variant max-w-md md:text-right" data-i18n="certs.sub">Courses, language certification, and committee recognition — each links to the original PDF.</p>
+    </div>
+    <ul class="cert-grid">
+
+      <li class="card-brut cert-card">
+        <div class="flex items-center justify-between gap-3">
+          <span class="chip-ink" data-i18n="ct.committee">Committee</span>
+          <span class="tl-period">BINUS Entrepreneurship Center</span>
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <p class="cert-name">First Year Program (FYP) NEXT – GEE Batch 1</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant" data-i18n="c1.sub">Awarded as Committee Member</p>
+        </div>
+        <dl class="cert-meta">
+          <div><dt data-i18n="certs.issued">Issued</dt><dd data-i18n="c1.date">27 – 29 Jul 2026</dd></div>
+          
+        </dl>
+        <div class="flex flex-wrap gap-2 mt-auto pt-1">
+          <a class="cert-action cert-action-ink" href="certificates/andreas-tri-dewa-putra.pdf" target="_blank" rel="noopener"><span data-i18n="certs.view">View PDF</span><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+          
+        </div>
+      </li>
+
+      <li class="card-brut cert-card">
+        <div class="flex items-center justify-between gap-3">
+          <span class="chip-ink" data-i18n="ct.lang">Language</span>
+          <span class="tl-period">Beelingua · BINUS University</span>
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <p class="cert-name">Advanced English (V2) — CEFR C2.1</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant" data-i18n="c2.sub">Verified certificate</p>
+        </div>
+        <dl class="cert-meta">
+          <div><dt data-i18n="certs.issued">Issued</dt><dd data-i18n="c2.date">Jul 2026</dd></div>
+          <div><dt data-i18n="certs.id">Credential ID</dt><dd class="font-mono">2026-C-6CCy90lYGiHY8</dd></div>
+        </dl>
+        <div class="flex flex-wrap gap-2 mt-auto pt-1">
+          <a class="cert-action cert-action-ink" href="certificates/beelingua-2026.pdf" target="_blank" rel="noopener"><span data-i18n="certs.view">View PDF</span><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+          
+        </div>
+      </li>
+
+      <li class="card-brut cert-card">
+        <div class="flex items-center justify-between gap-3">
+          <span class="chip-ink" data-i18n="ct.prog">Programming</span>
+          <span class="tl-period">SoloLearn</span>
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <p class="cert-name">C Intermediate</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant" data-i18n="c3.sub">Course certificate</p>
+        </div>
+        <dl class="cert-meta">
+          <div><dt data-i18n="certs.issued">Issued</dt><dd data-i18n="c3.date">26 Mar 2025</dd></div>
+          <div><dt data-i18n="certs.id">Credential ID</dt><dd class="font-mono">CC-BADWGHO0</dd></div>
+        </dl>
+        <div class="flex flex-wrap gap-2 mt-auto pt-1">
+          <a class="cert-action cert-action-ink" href="certificates/sololearn-intermediate-c.pdf" target="_blank" rel="noopener"><span data-i18n="certs.view">View PDF</span><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+          
+        </div>
+      </li>
+
+      <li class="card-brut cert-card">
+        <div class="flex items-center justify-between gap-3">
+          <span class="chip-ink" data-i18n="ct.prog">Programming</span>
+          <span class="tl-period">SoloLearn</span>
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <p class="cert-name">Introduction to C</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant" data-i18n="c3.sub">Course certificate</p>
+        </div>
+        <dl class="cert-meta">
+          <div><dt data-i18n="certs.issued">Issued</dt><dd data-i18n="c4.date">24 Mar 2025</dd></div>
+          <div><dt data-i18n="certs.id">Credential ID</dt><dd class="font-mono">CC-3NIYDQMP</dd></div>
+        </dl>
+        <div class="flex flex-wrap gap-2 mt-auto pt-1">
+          <a class="cert-action cert-action-ink" href="certificates/sololearn-c.pdf" target="_blank" rel="noopener"><span data-i18n="certs.view">View PDF</span><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+          
+        </div>
+      </li>
+
+      <li class="card-brut cert-card">
+        <div class="flex items-center justify-between gap-3">
+          <span class="chip-ink" data-i18n="ct.prog">Programming</span>
+          <span class="tl-period">Dicoding Indonesia</span>
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <p class="cert-name">Memulai Pemrograman Dengan C</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant" data-i18n="c5.sub">Valid until 05 Dec 2027</p>
+        </div>
+        <dl class="cert-meta">
+          <div><dt data-i18n="certs.issued">Issued</dt><dd data-i18n="c5.date">05 Dec 2024</dd></div>
+          <div><dt data-i18n="certs.id">Credential ID</dt><dd class="font-mono">2VX347R13ZYQ</dd></div>
+        </dl>
+        <div class="flex flex-wrap gap-2 mt-auto pt-1">
+          <a class="cert-action cert-action-ink" href="certificates/dicoding.pdf" target="_blank" rel="noopener"><span data-i18n="certs.view">View PDF</span><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+          <a class="cert-action" href="https://www.dicoding.com/certificates/2VX347R13ZYQ" rel="noopener noreferrer" target="_blank"><span data-i18n="certs.verify">Verify</span><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+        </div>
+      </li>
+
+    </ul>
+  </div>
 </section>
 
 <!-- SECTION: REPOSITORIES -->
@@ -1111,7 +1238,15 @@
         'contact.direct': 'Direct email', 'contact.copy': 'Copy', 'contact.copied': 'Copied!', 'contact.copyFail': 'Copy failed',
         'contact.clickCopy': '(click to copy)', 'contact.copyEmail': 'Copy email address', 'contact.copyDiscord': 'Copy Discord username rajaaavx',
         'contact.send': 'Send Email', 'contact.elsewhere': 'Find me elsewhere', 'contact.cv': 'Curriculum Vitae', 'contact.cvVal': 'View on Google Drive',
-        'footer.sub': 'Computer Science, BINUS University', 'footer.top': 'Back to top', 'footer.rights': 'All Rights Reserved.'
+        'footer.sub': 'Computer Science, BINUS University', 'footer.top': 'Back to top', 'footer.rights': 'All Rights Reserved.',
+        'certs.idx': 'Credentials', 'certs.title': 'Certificates',
+        'certs.sub': 'Courses, language certification, and committee recognition — each links to the original PDF.',
+        'certs.id': 'Credential ID', 'certs.issued': 'Issued', 'certs.view': 'View PDF', 'certs.verify': 'Verify',
+        'ct.committee': 'Committee', 'ct.lang': 'Language', 'ct.prog': 'Programming',
+        'c1.sub': 'Awarded as Committee Member', 'c1.date': '27 – 29 Jul 2026',
+        'c2.sub': 'Verified certificate', 'c2.date': 'Jul 2026',
+        'c3.sub': 'Course certificate', 'c3.date': '26 Mar 2025', 'c4.date': '24 Mar 2025',
+        'c5.sub': 'Valid until 05 Dec 2027', 'c5.date': '05 Dec 2024'
       },
       id: {
         'nav.tagline': 'Jaringan & Cloud', 'nav.about': 'Tentang', 'nav.work': 'Proyek', 'nav.journey': 'Perjalanan',
@@ -1171,7 +1306,15 @@
         'contact.direct': 'Email langsung', 'contact.copy': 'Salin', 'contact.copied': 'Tersalin!', 'contact.copyFail': 'Gagal menyalin',
         'contact.clickCopy': '(klik untuk menyalin)', 'contact.copyEmail': 'Salin alamat email', 'contact.copyDiscord': 'Salin username Discord rajaaavx',
         'contact.send': 'Kirim Email', 'contact.elsewhere': 'Temukan saya di', 'contact.cv': 'Curriculum Vitae', 'contact.cvVal': 'Lihat di Google Drive',
-        'footer.sub': 'Computer Science, BINUS University', 'footer.top': 'Kembali ke atas', 'footer.rights': 'Hak cipta dilindungi.'
+        'footer.sub': 'Computer Science, BINUS University', 'footer.top': 'Kembali ke atas', 'footer.rights': 'Hak cipta dilindungi.',
+        'certs.idx': 'Kredensial', 'certs.title': 'Sertifikat',
+        'certs.sub': 'Kursus, sertifikasi bahasa, dan penghargaan kepanitiaan — masing-masing tertaut ke PDF aslinya.',
+        'certs.id': 'ID Kredensial', 'certs.issued': 'Terbit', 'certs.view': 'Lihat PDF', 'certs.verify': 'Verifikasi',
+        'ct.committee': 'Kepanitiaan', 'ct.lang': 'Bahasa', 'ct.prog': 'Pemrograman',
+        'c1.sub': 'Diberikan sebagai Anggota Panitia', 'c1.date': '27 – 29 Jul 2026',
+        'c2.sub': 'Sertifikat terverifikasi', 'c2.date': 'Jul 2026',
+        'c3.sub': 'Sertifikat kursus', 'c3.date': '26 Mar 2025', 'c4.date': '24 Mar 2025',
+        'c5.sub': 'Berlaku hingga 05 Des 2027', 'c5.date': '05 Des 2024'
       }
     };
     window.SITE_I18N = I18N;
