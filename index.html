@@ -8,8 +8,11 @@
 <meta name="theme-color" content="#0A0A0A" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230A0A0A'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='15' font-weight='700' fill='%23FAFAF7' text-anchor='middle'%3EA%3C/text%3E%3Ccircle cx='25' cy='7' r='3' fill='%2322C55E'/%3E%3C/svg%3E">
 <script>
-  /* Theme: light by default (reference direction); a stored choice wins. Toggle is added in Stage 2. */
-  (function(){try{var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.classList.add('dark');}catch(e){}})();
+  /* Boot: stored theme (light default), hide body until ID copy is applied, enable motion if allowed */
+  (function(){var r=document.documentElement;
+    try{if(localStorage.getItem('theme')==='dark')r.classList.add('dark');
+        if(localStorage.getItem('lang')==='id'){r.classList.add('i18n-pending');setTimeout(function(){r.classList.remove('i18n-pending');},1500);}}catch(e){}
+    if(window.matchMedia&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches)r.classList.add('motion-ok');})();
 </script>
 <link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
@@ -303,6 +306,29 @@
   .cert-action:hover{transform:translate(-1px,-1px);background:rgb(var(--c-on-surface));color:rgb(var(--c-surface));}
   .cert-action-ink{background:rgb(var(--c-on-surface));color:rgb(var(--c-surface));}
   .cert-action-ink:hover{box-shadow:3px 3px 0 0 rgb(var(--c-signal));}
+  /* ===== Stage 11: motion (only when .motion-ok, i.e. JS on and no reduced-motion) ===== */
+  html.i18n-pending body{visibility:hidden;}
+  .motion-ok [data-reveal]{opacity:0;transform:translateY(28px);transition:opacity .7s ease var(--d,0ms),transform .8s cubic-bezier(.2,.7,.2,1) var(--d,0ms);}
+  .motion-ok [data-reveal].is-in{opacity:1;transform:none;}
+  @keyframes heroLine{from{opacity:0;transform:translateY(55%);clip-path:inset(0 0 100% 0)}to{opacity:1;transform:none;clip-path:inset(-10% -5% -10% -5%)}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @keyframes pillIn{from{opacity:0;transform:translateY(14px) rotate(0deg) scale(.92)}to{opacity:1;transform:rotate(var(--r,0deg))}}
+  .motion-ok .hero .eyebrow{animation:fadeUp .6s ease backwards;}
+  .motion-ok .hero-name>span{display:block;animation:heroLine .95s cubic-bezier(.2,.7,.2,1) backwards .15s;}
+  .motion-ok .hero-name>span:nth-child(2){animation-delay:.27s;}
+  .motion-ok .hero-pills .pill{animation:pillIn .5s cubic-bezier(.2,.7,.2,1) backwards;}
+  .motion-ok .hero-pills .pill:nth-child(1){animation-delay:.45s}.motion-ok .hero-pills .pill:nth-child(2){animation-delay:.51s}
+  .motion-ok .hero-pills .pill:nth-child(3){animation-delay:.57s}.motion-ok .hero-pills .pill:nth-child(4){animation-delay:.63s}
+  .motion-ok .hero-pills .pill:nth-child(5){animation-delay:.69s}
+  .motion-ok .hero-cmd{animation:fadeUp .6s ease backwards .6s;}
+  .motion-ok .hero-name~div{animation:fadeUp .7s ease backwards .7s;}
+  .motion-ok .status-strip{animation:fadeUp .7s ease backwards .85s;}
+  /* timeline draw: ::before = faint track, ::after = ink line scaled by scroll progress */
+  .motion-ok .timeline::before{background:rgb(var(--c-on-surface)/.15);}
+  .motion-ok .timeline::after{content:"";position:absolute;top:8px;bottom:8px;left:9px;width:2px;background:rgb(var(--c-on-surface));transform-origin:top;transform:scaleY(var(--tl,0));}
+  @media (min-width:1024px){.motion-ok .timeline::after{left:50%;transform:translateX(-1px) scaleY(var(--tl,0));}}
+  .motion-ok .tl-node::after{transition:transform .35s cubic-bezier(.2,.7,.2,1);}
+  .motion-ok .tl-item:not(.tl-on) .tl-node::after{transform:scale(0);}
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
     *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}
@@ -461,7 +487,7 @@
     <div class="cell"><dt class="sr-only" data-i18n="strip.statusLabel">Status</dt><dd class="flex items-center gap-2.5"><span class="live-dot" aria-hidden="true"></span><span data-i18n="strip.status">Open to internship</span></dd></div>
     <div class="cell"><dt class="sr-only" data-i18n="strip.campusLabel">Campus</dt><dd>BINUS University</dd></div>
     <div class="cell"><dt class="sr-only" data-i18n="strip.basedLabel">Location</dt><dd><span class="text-outline" data-i18n="strip.based">Based in</span> <span data-i18n="strip.city">North Jakarta, ID</span></dd></div>
-    <div class="cell"><dt class="text-outline" data-i18n="strip.today">Today:</dt><dd><time id="today-date"></time></dd></div>
+    <div class="cell"><dt class="sr-only" data-i18n="strip.today">Today:</dt><dd class="flex items-center gap-2"><svg class="w-3.5 h-3.5 shrink-0 text-outline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><time id="today-date"></time></dd></div>
   </dl>
 </section>
 
@@ -1356,6 +1382,7 @@
       });
       syncThemeLabel(); syncMenuLabel();
       document.dispatchEvent(new CustomEvent('site:lang', { detail: lang }));
+      root.classList.remove('i18n-pending');
     }
     document.querySelectorAll('.lang-btn').forEach(function (b) {
       b.addEventListener('click', function () { store('lang', b.getAttribute('data-lang')); applyLang(b.getAttribute('data-lang')); });
@@ -1412,11 +1439,14 @@
     /* --- live date in status strip --- */
     function renderToday() {
       var el = document.getElementById('today-date'); if (!el) return;
-      var d = new Date();
-      el.dateTime = d.toISOString().slice(0, 10);
-      el.textContent = d.toLocaleDateString(lang === 'id' ? 'id-ID' : 'en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).replace('.', '').toUpperCase();
+      var d = new Date(), loc = lang === 'id' ? 'id-ID' : 'en-GB', tz = 'Asia/Jakarta';
+      el.dateTime = d.toISOString();
+      var date = d.toLocaleDateString(loc, { day: '2-digit', month: 'short', year: 'numeric', timeZone: tz }).replace('.', '').toUpperCase();
+      var time = d.toLocaleTimeString(loc, { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: tz });
+      el.textContent = date + ' · ' + time + ' WIB';
     }
     document.addEventListener('site:lang', renderToday);
+    setInterval(renderToday, 30000);
 
     /* --- copy to clipboard: [data-copy] (email, Discord) --- */
     function copyText(text) {
@@ -1449,6 +1479,42 @@
 
     var yearEl = document.getElementById('footer-year');
     if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+    /* --- motion: scroll reveal + timeline draw (skipped under reduced motion) --- */
+    if (root.classList.contains('motion-ok') && 'IntersectionObserver' in window) {
+      var REVEAL = '.sec-head, .bento > *, .work, .tl-item, .certs > div:first-child, .cert-card, #github-repos-grid, #contact .grid > div, .footer-mark';
+      var targets = Array.prototype.slice.call(document.querySelectorAll(REVEAL)).filter(function (el) {
+        return el.getBoundingClientRect().top > window.innerHeight * 0.92;   // leave what is already on screen alone
+      });
+      targets.forEach(function (el) {
+        var sibs = Array.prototype.filter.call(el.parentElement.children, function (c) { return targets.indexOf(c) !== -1; });
+        el.style.setProperty('--d', Math.min(sibs.indexOf(el) * 90, 360) + 'ms');
+        el.setAttribute('data-reveal', '');
+      });
+      var rio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          var el = en.target; rio.unobserve(el); el.classList.add('is-in');
+          setTimeout(function () { el.removeAttribute('data-reveal'); el.classList.remove('is-in'); el.style.removeProperty('--d'); }, 1300);
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+      targets.forEach(function (el) { rio.observe(el); });
+
+      var tl = document.querySelector('.timeline');
+      if (tl) {
+        var items = tl.querySelectorAll('.tl-item'), tlTick = false;
+        var drawTimeline = function () {
+          tlTick = false;
+          var r = tl.getBoundingClientRect(), line = window.innerHeight * 0.62;
+          var prog = Math.max(0, Math.min(1, (line - r.top) / r.height));
+          tl.style.setProperty('--tl', prog.toFixed(3));
+          items.forEach(function (it) { it.classList.toggle('tl-on', it.querySelector('.tl-node').getBoundingClientRect().top < line); });
+        };
+        window.addEventListener('scroll', function () { if (!tlTick) { tlTick = true; requestAnimationFrame(drawTimeline); } }, { passive: true });
+        window.addEventListener('resize', drawTimeline);
+        drawTimeline();
+      }
+    }
 
     applyLang(lang);
   })();
