@@ -1612,25 +1612,41 @@
       layout();
     })();
 
-    /* --- GPA counts up from 0.00 to 3.50 when the card comes into view --- */
+    /* --- GPA counts up from 0.00 to 3.50 — only once the intro is over and the number is fully on screen;
+           resets when it leaves the viewport so it replays every time you come back to it --- */
     (function () {
       var el = document.getElementById('gpa-num'); if (!el) return;
       var target = parseFloat(el.getAttribute('data-target')) || 0;
       if (!root.classList.contains('motion-ok') || !('IntersectionObserver' in window)) return;
+      var INTRO_END = 1950, raf = null, wait = null, inView = false;
       el.textContent = '0.00';
-      var io = new IntersectionObserver(function (entries) {
-        if (!entries[0].isIntersecting) return;
-        io.disconnect();
+      function run() {
+        cancelAnimationFrame(raf);
         var t0 = null, dur = 1600;
         function step(ts) {
+          if (!inView) return;
           if (t0 === null) t0 = ts;
           var k = Math.min(1, (ts - t0) / dur), e = 1 - Math.pow(1 - k, 3);   // ease-out cubic
           el.textContent = (target * e).toFixed(2);
-          if (k < 1) requestAnimationFrame(step); else el.textContent = target.toFixed(2);
+          if (k < 1) raf = requestAnimationFrame(step);
         }
-        setTimeout(function () { requestAnimationFrame(step); }, 250);
-      }, { threshold: 0.6 });
-      io.observe(el);
+        raf = requestAnimationFrame(step);
+      }
+      var gio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.intersectionRatio >= 0.99) {
+            if (inView) return;
+            inView = true;
+            var delay = Math.max(250, INTRO_END - performance.now());
+            clearTimeout(wait);
+            wait = setTimeout(function () { if (inView && document.visibilityState === 'visible') run(); }, delay);
+          } else if (!en.isIntersecting) {
+            inView = false; clearTimeout(wait); cancelAnimationFrame(raf); el.textContent = '0.00';
+          }
+        });
+      }, { threshold: [0, 0.99], rootMargin: '0px 0px -12% 0px' });
+      gio.observe(el);
+      document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible' && inView && el.textContent === '0.00') run(); });
     })();
 
     /* --- motion: scroll reveal + timeline draw (skipped under reduced motion) --- */
