@@ -431,11 +431,13 @@
   }
   .cursor-ring{display:none;}
   @media (hover:hover) and (pointer:fine){
-    .motion-ok .cursor-ring{display:block;position:fixed;left:0;top:0;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:9999px;border:2px solid #FAFAF7;
-      mix-blend-mode:difference;pointer-events:none;z-index:300;opacity:0;transition:width .25s cubic-bezier(.2,.7,.2,1),height .25s cubic-bezier(.2,.7,.2,1),margin .25s cubic-bezier(.2,.7,.2,1),background-color .2s,opacity .2s;}
+    .motion-ok .cursor-ring{display:block;position:fixed;left:0;top:0;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:9999px;background:#FAFAF7;
+      mix-blend-mode:difference;pointer-events:none;z-index:300;opacity:0;
+      transition:width .3s cubic-bezier(.2,.7,.2,1),height .3s cubic-bezier(.2,.7,.2,1),margin .3s cubic-bezier(.2,.7,.2,1),opacity .2s;}
     .motion-ok .cursor-ring.on{opacity:1;}
-    .motion-ok .cursor-ring.hot{width:58px;height:58px;margin:-29px 0 0 -29px;background:#FAFAF7;}
-    .motion-ok .cursor-ring.down{width:24px;height:24px;margin:-12px 0 0 -12px;}
+    .motion-ok .cursor-ring.hot{width:58px;height:58px;margin:-29px 0 0 -29px;}
+    .motion-ok .cursor-ring.big{width:132px;height:132px;margin:-66px 0 0 -66px;}
+    .motion-ok .cursor-ring.down{width:18px;height:18px;margin:-9px 0 0 -9px;}
   }
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
@@ -1687,6 +1689,7 @@
       ring.className = 'cursor-ring'; ring.setAttribute('aria-hidden', 'true');
       document.body.appendChild(ring);
       var HOT = 'a, button, [role="button"], .social-tile, .copy-btn, .tech, .pill, .repo-card, .lang-btn';
+      var BIG = '.hero-name, .sec-title, .contact-title, .work-title, .tl-num, .certs-title, .footer-mark, #gpa-num';
       var mx = -100, my = -100, rx = -100, ry = -100, running = false;
       function loop() {
         rx += (mx - rx) * 0.2; ry += (my - ry) * 0.2;
@@ -1696,7 +1699,9 @@
       document.addEventListener('mousemove', function (e) {
         mx = e.clientX; my = e.clientY;
         if (!ring.classList.contains('on')) { rx = mx; ry = my; ring.classList.add('on'); }
-        ring.classList.toggle('hot', !!(e.target.closest && e.target.closest(HOT)));
+        var t = e.target.closest ? e.target : null;
+        var big = !!(t && t.closest(BIG)), hot = !big && !!(t && t.closest(HOT));
+        ring.classList.toggle('big', big); ring.classList.toggle('hot', hot);
         if (!running) { running = true; requestAnimationFrame(loop); }
       }, { passive: true });
       document.addEventListener('mousedown', function () { ring.classList.add('down'); });
