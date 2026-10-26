@@ -317,14 +317,22 @@
   .cert-action-ink:hover{box-shadow:3px 3px 0 0 rgb(var(--c-signal));}
   /* ===== Entrance intro (curtain) — runs on every load/refresh when motion is allowed ===== */
   #intro{display:none;}
-  .motion-ok #intro{display:block;position:fixed;inset:0;z-index:200;pointer-events:none;overflow:hidden;animation:introDone 0s linear 1.55s forwards;}
+  .motion-ok #intro{display:block;position:fixed;inset:0;z-index:200;pointer-events:none;overflow:hidden;background:rgb(var(--c-surface));
+    animation:introBg 0s linear .72s forwards, introDone 0s linear 1.85s forwards;}
+  @keyframes introBg{to{background:transparent}}
   .intro-panel{position:absolute;left:-10%;width:120%;top:0;height:100%;background:rgb(var(--c-on-surface));
-    animation:introRise .72s cubic-bezier(.76,0,.24,1) forwards, introExit .72s cubic-bezier(.76,0,.24,1) .82s forwards;
+    animation:introRise .72s cubic-bezier(.76,0,.24,1) forwards, introExit .72s cubic-bezier(.76,0,.24,1) 1.12s forwards;
     transform:translateY(100%);border-radius:50% 50% 0 0 / 22% 22% 0 0;}
-  .intro-mark{position:absolute;inset:0;display:grid;place-items:center;font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:rgb(var(--c-surface));opacity:0;animation:introMark .7s ease .38s forwards;}
+  .intro-mark{position:absolute;inset:0;display:grid;place-items:center;opacity:0;animation:introMark 1.05s ease .36s forwards;}
+  .intro-mark .im{display:inline-flex;align-items:baseline;font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:clamp(44px,9vw,104px);line-height:1;letter-spacing:-.05em;color:rgb(var(--c-surface));}
+  .intro-mark .im-txt{display:inline-block;min-width:3.1em;text-align:center;}
+  .intro-mark .im-dot{color:rgb(var(--c-signal));}
+  .intro-mark .im.glitching .im-txt{animation:glitchJitter .3s steps(1) infinite;text-shadow:-.05em 0 0 rgb(var(--c-signal)),.04em 0 0 rgb(var(--c-surface)/.45);}
+  .intro-mark .im.glitch-out{animation:imOut .32s steps(4) forwards;}
+  @keyframes imOut{0%{transform:none;clip-path:inset(0)}25%{transform:translateX(-.04em) skewX(-8deg);clip-path:inset(20% 0 40% 0)}50%{transform:translateX(.05em);clip-path:inset(60% 0 5% 0)}75%{transform:translateX(-.02em);clip-path:inset(0 0 70% 0)}100%{opacity:0;clip-path:inset(50% 0 50% 0)}}
   @keyframes introRise{0%{transform:translateY(100%);border-radius:50% 50% 0 0 / 22% 22% 0 0}100%{transform:translateY(0);border-radius:0}}
   @keyframes introExit{0%{transform:translateY(0);border-radius:0}100%{transform:translateY(-100%);border-radius:0 0 50% 50% / 0 0 22% 22%}}
-  @keyframes introMark{0%{opacity:0;transform:translateY(8px)}45%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-8px)}}
+  @keyframes introMark{0%{opacity:0;transform:translateY(10px)}18%{opacity:1;transform:none}100%{opacity:1;transform:none}}
   @keyframes introDone{to{visibility:hidden}}
   @keyframes nameReveal{
     from{opacity:0;transform:translateY(10px);-webkit-mask-image:linear-gradient(90deg,#000 40%,transparent 60%);mask-image:linear-gradient(90deg,#000 40%,transparent 60%);-webkit-mask-size:260% 100%;mask-size:260% 100%;-webkit-mask-position:100% 0;mask-position:100% 0;}
@@ -337,9 +345,9 @@
   @keyframes heroLine{from{opacity:0;transform:translateY(55%);clip-path:inset(0 0 100% 0)}to{opacity:1;transform:none;clip-path:inset(-10% -5% -10% -5%)}}
   @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
   @keyframes pillIn{from{opacity:0;transform:translateY(14px) rotate(0deg) scale(.92)}to{opacity:1;transform:rotate(var(--r,0deg))}}
-  .motion-ok #site-header{animation:fadeDown .6s ease backwards 1.15s;}
+  .motion-ok #site-header{animation:fadeDown .6s ease backwards 1.45s;}
   /* name: glitch flicker while the letters scramble (JS), then settles */
-  .motion-ok .hero-name>span{display:block;animation:glitchIn .5s steps(1) backwards 1.05s;}
+  .motion-ok .hero-name>span{display:block;animation:glitchIn .5s steps(1) backwards 1.35s;}
   @keyframes glitchIn{0%{opacity:0}20%{opacity:1}30%{opacity:.15}45%{opacity:1}55%{opacity:.4}65%,100%{opacity:1}}
   .hero-name.glitching .g-txt{white-space:nowrap;}
   .hero-name.glitching>span{animation:glitchJitter .42s steps(1) infinite;text-shadow:-.035em 0 0 rgb(var(--c-signal)),.03em 0 0 rgb(var(--c-on-surface)/.35);}
@@ -364,7 +372,7 @@
   .glitch-wait{opacity:0;}
   .glitchy{animation:glitchJitter .38s steps(1) infinite;text-shadow:-2px 0 0 rgb(var(--c-signal)),2px 0 0 rgb(var(--c-on-surface)/.3);}
   .glitch-flash{animation:glitchFlash .3s steps(2) 1;}
-  .motion-ok .status-strip{animation:fadeUp .7s ease backwards 1.85s;}
+  .motion-ok .status-strip{animation:fadeUp .7s ease backwards 2.15s;}
   /* timeline draw: ::before = faint track, ::after = ink line scaled by scroll progress */
   .motion-ok .timeline::before{background:rgb(var(--c-on-surface)/.15);}
   .motion-ok .timeline::after{content:"";position:absolute;top:8px;bottom:8px;left:9px;width:2px;background:rgb(var(--c-on-surface));transform-origin:top;transform:scaleY(var(--tl,0));}
@@ -492,7 +500,7 @@
   }}};
 </script>
 </head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col justify-between">
-<div id="intro" aria-hidden="true"><div class="intro-panel"><span class="intro-mark">ATDP</span></div></div>
+<div id="intro" aria-hidden="true"><div class="intro-panel"><span class="intro-mark"><span class="im"><span class="im-txt">ATDP</span><span class="im-dot">.</span></span></span></div></div>
 <a class="skip-link" href="#main" data-i18n="aria.skip">Skip to content</a>
 <header id="site-header" class="fixed top-0 inset-x-0 z-50 bg-surface/90 backdrop-blur-md border-b-2 border-on-surface transition-colors">
   <div class="h-16 md:h-[72px] max-w-7xl mx-auto px-4 md:px-margin-lg flex items-center justify-between gap-4">
@@ -1651,7 +1659,7 @@
       var el = document.getElementById('gpa-num'); if (!el) return;
       var target = parseFloat(el.getAttribute('data-target')) || 0;
       if (!root.classList.contains('motion-ok') || !('IntersectionObserver' in window)) return;
-      var INTRO_END = 1950, raf = null, wait = null, inView = false;
+      var INTRO_END = 2250, raf = null, wait = null, inView = false;
       el.textContent = '0.00';
       function run() {
         cancelAnimationFrame(raf);
@@ -1712,8 +1720,32 @@
     /* --- hero entrance: glitching name + pills that fall with simple physics --- */
     (function () {
       if (!root.classList.contains('motion-ok')) return;
-      var START = 1050;                                    // ms after navigation, i.e. as the curtain clears
+      var START = 1350;                                    // ms after navigation, i.e. as the curtain clears
       var since = function () { return performance.now(); };
+
+      /* intro mark "ATDP." — scramble in, lock, glitch out as the curtain lifts */
+      var im = document.querySelector('#intro .im'), imTxt = im && im.querySelector('.im-txt');
+      if (imTxt) {
+        var IM_FINAL = 'ATDP', IM_POOL = 'ABDEHKNOPRSTUXZ#%&$@0123456789';
+        var imRand = function () { var o = ''; for (var i = 0; i < 4; i++) o += IM_POOL.charAt(Math.floor(Math.random() * IM_POOL.length)); return o; };
+        imTxt.textContent = imRand();
+        setTimeout(function () {
+          im.classList.add('glitching');
+          var t0 = since(), last = 0;
+          (function spin() {
+            var now = since();
+            if (now - last > 40) {
+              last = now;
+              var k = Math.min(1, (now - t0 - 160) / 380), lock = Math.max(0, Math.floor(k * 4));
+              imTxt.textContent = IM_FINAL.slice(0, lock) + imRand().slice(lock);
+              if (k >= 1) { imTxt.textContent = IM_FINAL; setTimeout(function () { im.classList.remove('glitching'); }, 120); return; }
+            }
+            requestAnimationFrame(spin);
+          })();
+        }, Math.max(0, 400 - since()));
+        setTimeout(function () { im.classList.add('glitching'); }, Math.max(0, 1000 - since()));       // short burst before leaving
+        setTimeout(function () { im.classList.remove('glitching'); im.classList.add('glitch-out'); }, Math.max(0, 1120 - since()));
+      }
 
       /* name glitch: scramble every letter, then lock them in left to right */
       var h1 = document.getElementById('hero-name');
