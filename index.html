@@ -146,6 +146,8 @@
   .stack-list{display:flex;flex-wrap:wrap;gap:8px;}
   .tech{display:inline-flex;align-items:center;padding:5px 10px;border:1.5px solid rgb(var(--c-on-surface));border-radius:8px;font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:500;color:rgb(var(--c-on-surface));background:rgb(var(--c-surface-lowest));}
   .tech-core{background:rgb(var(--c-on-surface));color:rgb(var(--c-surface));font-weight:600;}
+  .bento-stack .tech{cursor:default;transition:background-color .18s ease,color .18s ease,transform .15s ease,box-shadow .15s ease;}
+  .bento-stack .tech:hover{background:rgb(var(--c-on-surface));color:rgb(var(--c-surface));transform:translate(-1px,-1px);box-shadow:2px 2px 0 0 rgb(var(--c-signal));}
   .bento-focus{display:flex;flex-direction:column;gap:24px;justify-content:space-between;padding:28px;border-radius:20px;background:#0A0A0A;color:#FAFAF7;border:2px solid #0A0A0A;box-shadow:6px 6px 0 0 rgb(var(--c-signal));}
   .dark .bento-focus{border-color:#FAFAF7;}
   @media (min-width:768px){.bento-focus{padding:40px;}}
@@ -624,7 +626,7 @@
         <div><dt data-i18n="edu.status">Status</dt><dd class="text-secondary" data-i18n="edu.statusVal">Open to Internship</dd></div>
       </dl>
       <div class="flex items-end gap-3 pt-4 mt-auto border-t-2 border-on-surface">
-        <span class="font-display font-bold text-[56px] leading-[0.85] tracking-[-0.05em] text-on-surface">3.50</span>
+        <span id="gpa-num" class="font-display font-bold text-[56px] leading-[0.85] tracking-[-0.05em] text-on-surface tabular-nums" data-target="3.50">3.50</span>
         <span class="font-mono text-[11px] uppercase tracking-[0.08em] text-outline pb-1">/ 4.00 GPA</span>
       </div>
     </article>
@@ -638,15 +640,15 @@
           </span>
           <h3 class="font-display font-bold uppercase text-[22px] tracking-[-0.02em] text-on-surface">Tech Stack</h3>
         </div>
-        <span class="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.1em] text-outline"><span class="w-2.5 h-2.5 rounded-sm bg-on-surface" aria-hidden="true"></span><span data-i18n="stack.core">Core stack</span></span>
+        
       </div>
       <div class="stack-groups">
         <div><p class="stack-label" data-i18n="stack.lang">Languages</p>
-          <ul class="stack-list"><li class="tech tech-core">Go</li><li class="tech tech-core">Python</li></ul></div>
+          <ul class="stack-list"><li class="tech">Go</li><li class="tech">Python</li><li class="tech">C/C++</li><li class="tech">SQL</li><li class="tech">Java</li><li class="tech">JavaScript</li><li class="tech">HTML/CSS</li></ul></div>
         <div><p class="stack-label" data-i18n="stack.cloud">Cloud &amp; Infrastructure</p>
-          <ul class="stack-list"><li class="tech tech-core">Azure</li><li class="tech tech-core">Docker</li><li class="tech tech-core">Linux</li><li class="tech">Terraform</li><li class="tech">Ansible</li></ul></div>
+          <ul class="stack-list"><li class="tech">Azure</li><li class="tech">Docker</li><li class="tech">Linux</li><li class="tech">Kubernetes</li><li class="tech">VMware</li><li class="tech">Terraform</li><li class="tech">Ansible</li><li class="tech">IaC</li></ul></div>
         <div><p class="stack-label" data-i18n="stack.net">Networking</p>
-          <ul class="stack-list"><li class="tech tech-core">Cisco</li><li class="tech">Packet Tracer</li><li class="tech">TCP/IP</li><li class="tech">Linux Sockets</li></ul></div>
+          <ul class="stack-list"><li class="tech">Cisco</li><li class="tech">Packet Tracer</li><li class="tech">TCP/IP</li><li class="tech">Linux Sockets</li></ul></div>
         <div><p class="stack-label" data-i18n="stack.ml">Machine Learning</p>
           <ul class="stack-list"><li class="tech">TensorFlow</li><li class="tech">MobileNetV2</li><li class="tech">Streamlit</li></ul></div>
       </div>
@@ -1608,6 +1610,27 @@
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', layout);
       layout();
+    })();
+
+    /* --- GPA counts up from 0.00 to 3.50 when the card comes into view --- */
+    (function () {
+      var el = document.getElementById('gpa-num'); if (!el) return;
+      var target = parseFloat(el.getAttribute('data-target')) || 0;
+      if (!root.classList.contains('motion-ok') || !('IntersectionObserver' in window)) return;
+      el.textContent = '0.00';
+      var io = new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting) return;
+        io.disconnect();
+        var t0 = null, dur = 1600;
+        function step(ts) {
+          if (t0 === null) t0 = ts;
+          var k = Math.min(1, (ts - t0) / dur), e = 1 - Math.pow(1 - k, 3);   // ease-out cubic
+          el.textContent = (target * e).toFixed(2);
+          if (k < 1) requestAnimationFrame(step); else el.textContent = target.toFixed(2);
+        }
+        setTimeout(function () { requestAnimationFrame(step); }, 250);
+      }, { threshold: 0.6 });
+      io.observe(el);
     })();
 
     /* --- motion: scroll reveal + timeline draw (skipped under reduced motion) --- */
