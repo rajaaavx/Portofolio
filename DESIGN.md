@@ -83,3 +83,12 @@ card hover lift, live clock. Everything is disabled under `prefers-reduced-motio
 - Focus ring: 2px signal, 3px offset, on every interactive element.
 - Native scrollbar is kept.
 - Heading order h1 → h2 → h3; text contrast ≥ 4.5:1 in both themes.
+
+## Language (EN / ID)
+
+- All copy lives in the `I18N` dictionary inside `<script id="site-ui">` (`en` and `id` keys must match).
+- Mark elements with `data-i18n` (text), `data-i18n-html` (allows `<br>`), `data-i18n-aria` (aria-label)
+  or `data-i18n-alt` (img alt). The English text in the HTML is the fallback.
+- The choice is stored in `localStorage.lang`; default is English. Title, meta description, dates
+  (status strip, repo cards) and copy feedback follow the selected language.
+- Proper nouns, project/course names and tool names stay in their original language.
